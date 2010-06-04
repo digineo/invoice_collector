@@ -10,7 +10,7 @@ class InvoicesController < InheritedResources::Base
   def show
     super do |format|
       format.pdf {
-        send_data resource.filename, :filename => resource.number+'.pdf'
+        send_file resource.filename, :filename => resource.number+'.pdf'
       }
     end
   end
