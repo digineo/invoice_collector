@@ -1,7 +1,9 @@
 class Invoice < ActiveRecord::Base
   
   validates_presence_of :account_id
-  validates_format_of   :number, :with => /^[A-Z0-9]+$/i
+  validates_format_of   :number, :with => /^[A-Z0-9-]+$/i
+  
+  after_destroy :delete_pdf
   
   def save_pdf(data)
     File.open(filename, 'w') {|f| f.write(data) }
@@ -13,6 +15,12 @@ class Invoice < ActiveRecord::Base
   
   def print
     `lpr #{filename}`
+  end
+  
+  protected
+  
+  def delete_pdf
+    File.unlink(filename)
   end
   
 end

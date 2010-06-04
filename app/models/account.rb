@@ -6,6 +6,19 @@ class Account < ActiveRecord::Base
     end
   end
   
+  # Holt Rechnungen von allen Accounts ab
+  def self.fetch_all
+    total = 0
+    for account in all
+      print "#{account.module} (#{account.username}) ... "
+      i      = account.fetch_invoices.count
+      total += i
+      puts "#{i} neue Rechnung(en)"
+    end
+    puts "#{total} neue Rechnungen insgesamt"
+    true
+  end
+  
   # lädt neue Rechnungen runter
   def fetch_invoices
     invoices = []
