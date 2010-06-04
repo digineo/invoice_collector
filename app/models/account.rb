@@ -1,6 +1,10 @@
 class Account < ActiveRecord::Base
   
-  has_many :invoices
+  has_many :invoices, :order => 'date DESC' do
+    def sum_amount
+      collect{|i| i.amount.to_f }.sum
+    end
+  end
   
   # lädt neue Rechnungen runter
   def fetch_invoices

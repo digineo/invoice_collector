@@ -1,0 +1,8 @@
+!!! XML
+!!! Strict
+%html{:xmlns => 'http://www.w3.org/1999/xhtml'}
+  %head
+    %title= h @page_title
+    = stylesheet_link_tag 'screen'
+  %body
+    = yield

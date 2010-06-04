@@ -1,0 +1,15 @@
+%h1=h @page_title = "Rechnungen von #{@account.username}"
+
+%table
+  %thead
+    %th Datum
+    %th Nummer
+    %th Betrag
+    %th PDF
+  %tbody
+    = render collection
+  %tfoot
+    %td
+    %td
+    %td.right= number_to_currency @sum
+    %td
