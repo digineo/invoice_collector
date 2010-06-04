@@ -36,16 +36,6 @@ module Fetcher
       invoices
     end
     
-    def get(invoice)
-      @agent.get(invoice.href)
-    end
-    
-    protected
-    
-    def after_initialize
-      @agent = Mechanize.new
-    end
-    
   end
   
 end

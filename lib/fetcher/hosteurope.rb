@@ -35,21 +35,11 @@ module Fetcher
           :href   => "/kundenkonto/rechnungen/index.php?inline=yes&belegnr="+number,
           :number => number,
           :date   => Date.parse(cells[3].text),
-          :amount => cells[5].text.split.first.sub(',','.').to_f
+          :amount => extract_amount(cells[5].text)
         )
       end
       
       invoices
-    end
-    
-    def get(invoice)
-      @agent.get(invoice.href)
-    end
-    
-    protected
-    
-    def after_initialize
-      @agent = Mechanize.new
     end
     
   end

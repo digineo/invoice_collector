@@ -34,7 +34,7 @@ module Fetcher
           :href   => link['href'],
           :number => link.text,
           :date   => Date.parse(cells[2].text),
-          :amount => cells[3].text.split.last.sub(',','.').to_f
+          :amount => extract_amount(cells[3].text)
         )
       end
       
@@ -43,12 +43,6 @@ module Fetcher
     
     def get(invoice)
       @agent.get('https://dms.strfit.de/'+invoice.href)
-    end
-    
-    protected
-    
-    def after_initialize
-      @agent = Mechanize.new
     end
     
   end
