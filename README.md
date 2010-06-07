@@ -1,11 +1,13 @@
 # Invoice Collector
 
 Deine zentrale Sammelstelle für Online-Rechnungen.
-Der InvoiceCollector loggt sich für dich bei verschiedenen Anbieter ein und lädt alle Rechnungen in ein lokales Archiv.
+Der InvoiceCollector loggt sich für dich bei verschiedenen Anbietern ein und lädt die vorgefundenen PDF-Rechnungen in ein lokales Archiv.
+Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 
 ## Unterstütze Anbieter
 * Arcor
 * Affilinet
+* Binlayer
 * Hetzner
 * Hexonet
 * HostEurope
