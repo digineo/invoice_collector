@@ -1,6 +1,6 @@
 class Account < ActiveRecord::Base
   
-  has_many :invoices, :order => 'date DESC' do
+  has_many :invoices, :order => 'date DESC', :dependent => :destroy do
     def sum_amount
       collect{|i| i.amount.to_f }.sum
     end
