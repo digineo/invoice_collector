@@ -17,6 +17,16 @@ class InvoicesController < InheritedResources::Base
       }
     end
   end
-
-
+  
+  def print
+    resource.print
+    respond_to do |format|
+      format.xml { head :ok }
+      format.html {
+        flash[:notice] = "Rechnung #{resource.number} wird gedruckt"
+        redirect_to [@account, :invoices]
+      }
+    end
+  end
+  
 end

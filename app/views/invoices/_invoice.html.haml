@@ -2,4 +2,7 @@
   %td= object.date
   %td= object.number
   %td.right= object.amount ? number_to_currency(object.amount) : '-'
-  %td= link_to 'pdf', account_invoice_path(@account,object,:format => :pdf)
+  %td
+    = link_to 'download', account_invoice_path(@account,object,:format => :pdf)
+    \|
+    = link_to 'drucken', [:print,@account,object], :method => :post

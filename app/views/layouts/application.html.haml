@@ -5,4 +5,7 @@
     %title= h @page_title
     = stylesheet_link_tag 'screen'
   %body
+    - flash.each do |type, message|
+      %div{ :class => type }
+        %p= message
     = yield
