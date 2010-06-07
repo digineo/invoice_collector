@@ -13,8 +13,11 @@ class Invoice < ActiveRecord::Base
     "#{RAILS_ROOT}/data/invoices/#{id}.pdf"
   end
   
-  def print
-    `lpr #{filename}`
+  def print(args='')
+   # Datei an den Drucker schicken
+    unless system("lpr #{filename} #{args}")
+      raise "printing failed with status #{$?.to_i}"
+    end
   end
   
   protected
