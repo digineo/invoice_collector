@@ -27,7 +27,7 @@ module Fetcher
     
     # extrahiert einen betrag aus dem text
     def extract_amount(value)
-      value.to_s.match(/\d+[.,]\d+/)[0].sub(",",".").to_f
+      value.match(/[\d.,]*\d+[.,]\d+/)[0].gsub(/[.,]/,'').to_f/100
     end
     
   end
