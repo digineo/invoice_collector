@@ -12,6 +12,7 @@ Der InvoiceCollector loggt sich für dich bei verschiedenen Anbieter ein und lä
 * Keyweb
 * SimplyTel
 * Strato
+* Vodafone
 
 ## Installation
 
