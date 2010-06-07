@@ -2,14 +2,16 @@
 
 %table
   %thead
-    %th Datum
-    %th Nummer
-    %th Betrag
-    %th PDF
+    %tr
+      %th Datum
+      %th Nummer
+      %th Betrag
+      %th PDF
+  %tfoot
+    %tr
+      %td
+      %td
+      %td.right= number_to_currency @sum
+      %td
   %tbody
     = render collection
-  %tfoot
-    %td
-    %td
-    %td.right= number_to_currency @sum
-    %td
