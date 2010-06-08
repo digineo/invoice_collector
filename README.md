@@ -15,6 +15,7 @@ Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 * LinkLift
 * SimplyTel
 * Strato
+* Textbroker
 * Vodafone
 
 ## Installation
