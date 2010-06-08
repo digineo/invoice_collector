@@ -1,7 +1,7 @@
 class Invoice < ActiveRecord::Base
   
   validates_presence_of :account_id
-  validates_format_of   :number, :with => /^[A-Z0-9-]+$/i
+  validates_format_of   :number, :with => /^[A-Z0-9-_]+$/i
   
   after_destroy :delete_pdf
   
