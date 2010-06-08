@@ -6,10 +6,12 @@ class Account < ActiveRecord::Base
     end
   end
   
+  named_scope :active, :conditions => 'active=TRUE'
+  
   # Holt Rechnungen von allen Accounts ab
   def self.fetch_all
     total = 0
-    for account in all
+    for account in active.all
       print "#{account.module} (#{account.username}) ... "
       i      = account.fetch_invoices.count
       total += i

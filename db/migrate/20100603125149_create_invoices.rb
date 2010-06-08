@@ -5,7 +5,6 @@ class CreateInvoices < ActiveRecord::Migration
       t.string   :number
       t.date     :date
       t.decimal  :amount, :precision => 9, :scale => 2
-      t.boolean  :printed,    :null => false, :default => false
       t.datetime :created_at, :null => false
     end
     change_table :invoices do |t|
