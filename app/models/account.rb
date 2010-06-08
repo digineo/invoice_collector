@@ -6,6 +6,7 @@ class Account < ActiveRecord::Base
     end
   end
   
+  default_scope :order => 'module, username'
   named_scope :active, :conditions => 'active=TRUE'
   
   # Holt Rechnungen von allen Accounts ab
