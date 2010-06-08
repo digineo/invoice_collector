@@ -12,6 +12,7 @@ Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 * Hexonet
 * HostEurope
 * Keyweb
+* LinkLift
 * SimplyTel
 * Strato
 * Vodafone
