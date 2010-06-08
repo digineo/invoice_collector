@@ -4,7 +4,7 @@ module Fetcher
     
     START = 'https://robot.your-server.de/'
     
-    def list
+    def login
       # erst die Startseite aufrufen
       @agent.get(START)
       
@@ -13,7 +13,9 @@ module Fetcher
       
       # Login fehlgeschlagen?
       raise LoginException if page.uri.path != '/'
-      
+    end
+    
+    def list
       # Rechnungsübersicht aufrufen
       page = @agent.get('/invoice')
       
@@ -34,6 +36,10 @@ module Fetcher
       end
       
       invoices
+    end
+    
+    def logout
+      @agent.get('/login/logout')
     end
     
   end

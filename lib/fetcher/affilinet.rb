@@ -4,7 +4,7 @@ module Fetcher
     
     START = 'http://www.affili.net/'
     
-    def list
+    def login
       page   = @agent.get(START)
       form   = page.forms.first
       fields = form.fields
@@ -16,8 +16,10 @@ module Fetcher
       
       # Login fehlgeschlagen?
       raise LoginException unless page.uri.to_s.ends_with?('/Start/default.aspx')
-      
-      # Link zur Rechnungsübersicht
+    end
+    
+    def list
+      # Rechnungsübersicht
       page = @agent.get('/Account/payments.aspx')
       
       invoices = []
@@ -39,6 +41,10 @@ module Fetcher
       end
       
       invoices
+    end
+    
+    def logout
+      @agent.get('/Login/Logout.aspx')
     end
     
   end

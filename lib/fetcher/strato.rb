@@ -4,7 +4,7 @@ module Fetcher
     
     START = 'https://config.stratoserver.net/'
     
-    def list
+    def login
       page  = @agent.get(START)
       form  = page.form('main')
       form.domainname = @account.username
@@ -16,9 +16,13 @@ module Fetcher
       # Login fehlgeschlagen?
       raise LoginException if page.uri.to_s.ends_with?('/index.php')
       
-      # Link zur Rechnungsübersicht
-      page = page.links.find{|l|l.text=='Online invoices'}.click
-      page = page.iframes.first.click
+      # wichtige Links
+      @invoices_link = page.links.find{|l|l.text=='Online invoices'}
+      @logout_link   = page.links.find{|l|l.text=='Logout'}
+    end
+    
+    def list
+      page = @invoices_link.click.iframes.first.click
       
       invoices = []
       
@@ -43,6 +47,10 @@ module Fetcher
     
     def get(invoice)
       @agent.get('https://dms.strfit.de/'+invoice.href)
+    end
+    
+    def logout
+      @logout_link.click
     end
     
   end

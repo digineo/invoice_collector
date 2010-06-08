@@ -4,7 +4,7 @@ module Fetcher
     
     START = 'https://kcm.keyweb.de/index.cgi'
     
-    def list
+    def login
       page  = @agent.get(START)
       form  = page.forms.first
       form.loginname   = @account.username
@@ -14,11 +14,14 @@ module Fetcher
       page = @agent.submit(form)
       
       # Link zur Rechnungsübersicht
-      link = page.links_with(:href => /rechnungonline/)[0]
+      @invoices_link = page.links_with(:href => /rechnungonline/)[0]
       
       # Login fehlgeschlagen?
-      raise LoginException unless link
-      page = link.click
+      raise LoginException unless @invoices_link
+    end
+    
+    def list
+      page = @invoices_link.click
       
       invoices = []
       
@@ -41,6 +44,10 @@ module Fetcher
       end
       
       invoices
+    end
+    
+    def logout
+      # gibt es nicht
     end
     
   end

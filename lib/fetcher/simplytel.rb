@@ -4,7 +4,7 @@ module Fetcher
     
     START = 'https://www.simplytel.de/'
     
-    def list
+    def login
       page  = @agent.get(START)
       form  = page.forms.first
       form.credential_0 = @account.username
@@ -15,7 +15,9 @@ module Fetcher
       
       # Login fehlgeschlagen?
       raise LoginException unless page.uri.to_s.ends_with?('/index3.php')
-      
+    end
+    
+    def list
       # Link zur Rechnungsübersicht
       page = @agent.get('/rechnungonline.php?action=rechnung24&unteraction=uebersicht&sehen=Alle+Rechnungen+anzeigen')
       
@@ -34,6 +36,10 @@ module Fetcher
       end
       
       invoices
+    end
+    
+    def logout
+      @agent.get('/frei/logout.pl')
     end
     
   end

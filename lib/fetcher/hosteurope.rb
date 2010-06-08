@@ -4,7 +4,7 @@ module Fetcher
     
     START = 'https://kis.hosteurope.de/'
     
-    def list
+    def login
       page  = @agent.get(START)
       form  = page.form('f')
       form.kdnummer = @account.username
@@ -15,7 +15,9 @@ module Fetcher
       
       # Login fehlgeschlagen?
       raise LoginException if page.uri.to_s.ends_with?('/index.php')
-      
+    end
+    
+    def list
       # Link zur Rechnungsübersicht
       page = @agent.get('/kundenkonto/rechnungen/')
       
@@ -40,6 +42,10 @@ module Fetcher
       end
       
       invoices
+    end
+    
+    def logout
+      @agent.get('/?logout=1')
     end
     
   end

@@ -21,21 +21,30 @@ class Account < ActiveRecord::Base
   
   # lädt neue Rechnungen runter
   def fetch_invoices
+    
     invoices = []
     
-    for invoice in fetcher.list
-      # existiert schon?
-      next if self.invoices.find_by_number(invoice.number)
-      
-      transaction do
-        i = self.invoices.create! \
-          :number => invoice.number,
-          :date   => invoice.date,
-          :amount => invoice.amount
+    # einloggen
+    fetcher.login
+    
+    begin
+      for invoice in fetcher.list
+        # existiert schon?
+        next if self.invoices.find_by_number(invoice.number)
         
-        i.save_pdf(invoice.pdf)
-        invoices << i
+        transaction do
+          i = self.invoices.create! \
+            :number => invoice.number,
+            :date   => invoice.date,
+            :amount => invoice.amount
+          
+          i.save_pdf(invoice.pdf)
+          invoices << i
+        end
       end
+    ensure
+      # ausloggen
+      fetcher.logout
     end
     
     invoices

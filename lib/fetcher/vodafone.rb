@@ -4,7 +4,7 @@ module Fetcher
     
     START = 'https://www.vodafone.de/mvd/'
     
-    def list
+    def login
       page  = @agent.get(START)
       form  = page.form('loginBox')
       form.fields.find{|f|f.name=='name'}.value = @account.username
@@ -15,7 +15,9 @@ module Fetcher
       
       # Login fehlgeschlagen?
       raise LoginException if page.uri.path.include?('/login/')
-      
+    end
+    
+    def list
       # klappt erst beim zweiten mal
       2.times do
         page = @agent.get('/proxy42/portal/navigation.po?path=0.0.1.1')
@@ -45,6 +47,10 @@ module Fetcher
       end
       
       invoices
+    end
+    
+    def logout
+      @agent.get('/proxy42/portal/logout.po')
     end
     
   end

@@ -4,7 +4,7 @@ module Fetcher
     
     START = 'https://wi.hexonet.net/wi/54cd/include.php'
     
-    def list
+    def login
       page  = @agent.get(START)
       form  = page.forms.first
       form.LOGIN_USER     = @account.username
@@ -15,7 +15,9 @@ module Fetcher
       
       # Login fehlgeschlagen?
       raise LoginException if page.title =~ /Anmelden/
-      
+    end
+    
+    def list
       # Link zur Rechnungsübersicht
       page = @agent.get('/wi/54cd/xirca/invoice/invoicelist.php')
       
@@ -41,6 +43,10 @@ module Fetcher
       end
       
       invoices
+    end
+    
+    def logout
+      @agent.get('/wi/54cd/logout.php')
     end
     
   end

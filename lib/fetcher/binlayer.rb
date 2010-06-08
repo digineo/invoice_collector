@@ -4,7 +4,7 @@ module Fetcher
     
     START = 'http://binlayer.com/'
     
-    def list
+    def login
       page  = @agent.get(START)
       form  = page.forms.find{|f|f.action =~ /login/ }
       form.username = @account.username
@@ -15,7 +15,9 @@ module Fetcher
       
       # Login fehlgeschlagen?
       raise LoginException if page.uri.path == '/login.html'
-      
+    end
+    
+    def list
       # Rechnungsübersicht aufrufen
       page = @agent.get('/konto-auszahlungen.html')
       
@@ -38,6 +40,10 @@ module Fetcher
       end
       
       invoices
+    end
+    
+    def logout
+      @agent.get('/logout.html')
     end
     
   end

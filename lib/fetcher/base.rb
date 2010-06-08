@@ -7,12 +7,25 @@ module Fetcher
       @agent  ||= Mechanize.new
     end
     
+    # Startet die Session
+    # schlägt das Login fehlt, wird eine Fetcher::LoginException geworfen
+    def login
+      raise NotImplementedError
+    end
+    
+    # Gibt eine Liste der verfügbaren Rechnungen zurück
     def list
       raise NotImplementedError
     end
     
+    # Lädt eine Rechnung als PDF runter
     def get(invoice)
       @agent.get(invoice.href)
+    end
+    
+    # Beendet die Session
+    def logout
+      raise NotImplementedError
     end
     
     protected
@@ -25,7 +38,7 @@ module Fetcher
       Invoice.new self, attributes
     end
     
-    # extrahiert einen betrag aus dem text
+    # extrahiert einen Betrag aus dem text
     def extract_amount(value)
       value.match(/[\d.,]*\d+[.,]\d+/)[0].gsub(/[.,]/,'').to_f/100
     end
