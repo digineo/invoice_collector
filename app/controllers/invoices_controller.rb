@@ -1,5 +1,8 @@
 class InvoicesController < InheritedResources::Base
   
+  actions :index, :show
+  respond_to :html, :xml, :json
+  
   belongs_to :account
   
   def index
