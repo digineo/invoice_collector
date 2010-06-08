@@ -15,6 +15,7 @@ Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 * keyweb (Keyweb AG)
 * linklift (LinkLift Ltd.)
 * simplytel (simply Communication GmbH)
+* sipgate (Sipgate GmbH)
 * strato (Strato AG)
 * swb (swb AG)
 * textbroker (Sario Marketing GmbH)
