@@ -18,7 +18,7 @@ module Fetcher
     end
     
     def list
-      page = @agent.get('/user/invoice.php')
+      page = @agent.get('/user/invoice.php') # ?year=2009
       
       invoices = []
       

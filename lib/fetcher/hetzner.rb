@@ -17,7 +17,7 @@ module Fetcher
     
     def list
       # Rechnungsübersicht aufrufen
-      page = @agent.get('/invoice')
+      page = @agent.get('/invoice') # /invoice/index/page/2
       
       invoices = []
       
