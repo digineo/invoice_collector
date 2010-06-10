@@ -59,7 +59,7 @@ module Fetcher
       invoices
     end
     
-    def get(invoice, href)
+    def download(invoice, href)
       @agent.get('https://dms.strfit.de/'+href)
     end
     

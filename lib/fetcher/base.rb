@@ -23,7 +23,7 @@ module Fetcher
     end
     
     # Lädt eine Rechnung oder Signatur herunter
-    def get(invoice,href)
+    def download(invoice,href)
       @agent.get(href)
     end
     
