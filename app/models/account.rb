@@ -37,11 +37,12 @@ class Account < ActiveRecord::Base
         
         transaction do
           i = self.invoices.create! \
-            :number => invoice.number,
-            :date   => invoice.date,
-            :amount => invoice.amount
+            :number    => invoice.number,
+            :date      => invoice.date,
+            :amount    => invoice.amount,
+            :original  => invoice.original,
+            :signature => invoice.signature
           
-          i.save_pdf(invoice.pdf)
           invoices << i
         end
       end

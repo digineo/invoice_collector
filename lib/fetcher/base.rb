@@ -18,9 +18,9 @@ module Fetcher
       raise NotImplementedError
     end
     
-    # Lädt eine Rechnung als PDF runter
-    def get(invoice)
-      @agent.get(invoice.href)
+    # Lädt eine Rechnung oder Signatur herunter
+    def get(invoice,href)
+      @agent.get(href)
     end
     
     # Beendet die Session
@@ -29,10 +29,6 @@ module Fetcher
     end
     
     protected
-    
-    def after_initialize
-      
-    end
     
     def build_invoice(attributes)
       Invoice.new self, attributes

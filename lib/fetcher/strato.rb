@@ -22,21 +22,35 @@ module Fetcher
     end
     
     def list
-      page = @invoices_link.click.iframes.first.click
+      attempts = 0
+      
+      begin
+        page = @invoices_link.click.iframes.first.click
+      rescue Mechanize::ResponseCodeError:
+        # funk
+        if attempts < 3
+          attempts += 1
+          retry
+        end
+      end
       
       invoices = []
       
-      for row in page.search("tr")
+      for row in page.search("table[id=ctl00_ContentPlaceHolder1_content]/tr")
         
         cells = row.search("td")
         next if cells.empty?
         
-        link = cells[0].search("a").first
-        next if !link || link.text !~ /^DRP/
+        links = cells[0].search("a")
+        next if links.size != 3
+        
+        pdf_link = links.find{|l| l['title'] =~ /PDF/ }
+        sig_link = links.find{|l| l['title'] =~ /Signatur/ }
         
         invoices << build_invoice(
-          :href   => link['href'],
-          :number => link.text,
+          :href     => pdf_link['href'],
+          :href_sig => sig_link['href'],
+          :number => links.first.text,
           :date   => Date.parse(cells[2].text),
           :amount => extract_amount(cells[3].text)
         )
@@ -45,8 +59,8 @@ module Fetcher
       invoices
     end
     
-    def get(invoice)
-      @agent.get('https://dms.strfit.de/'+invoice.href)
+    def get(invoice, href)
+      @agent.get('https://dms.strfit.de/'+href)
     end
     
     def logout

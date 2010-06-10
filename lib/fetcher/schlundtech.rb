@@ -24,13 +24,16 @@ module Fetcher
       
       for row in page.search("table[width='98%']/tr")
         
-        link  = row.search("a")[1]
+        links = row.search("a")
+        link  = links[1]
+        sig   = links.find{|l| l.text=='Signatur' }
         cells = row.search("td")
         
         next unless link
         
         invoices << build_invoice(
-          :href   => link['href'],
+          :href     => link['href'],
+          :href_sig => sig ? sig['href'] : nil,
           :number => link.text.strip,
           :date   => cells[3].text,
           :amount => extract_amount(cells[4].text)
