@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://www.swb-gruppe.de/online-service/hb/css/startLogin.jsp'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.form('frm_login')
       form['Process.User.RegGPNumber'] = @account.username
       form['Process.User.Password']    = @account.password
@@ -20,7 +20,7 @@ module Fetcher
     def list
       page = post('DokAnsicht')
       
-      h3 = page.search("h3").first.text
+      h3 = page.at("h3").text
       raise "ungültige Seite: #{h3}" if h3 != 'Dokumente'
       
       invoices = []
@@ -28,7 +28,7 @@ module Fetcher
       for row in page.search("table[class=tbl-downloads]/tbody/tr")
         
         cells  = row.search("td")
-        link   = row.search("a").first
+        link   = row.at("a")
         params = link['href'].match(/download\('(.+)','(.+)'\)/)
         
         invoices << build_invoice(

@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://www.arcor.de/login/webbill_login.jsp'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.form('login')
       form.user_name = @account.username
       form.password  = @account.password
@@ -21,7 +21,7 @@ module Fetcher
       page = nil
       # ja, erst beim dritten mal kommt die gewünschte seite
       3.times do
-        page = @agent.get('https://www.webbill.arcor.de/webbill/jahresCheck.sap')
+        page = get('https://www.webbill.arcor.de/webbill/jahresCheck.sap')
       end
       
       invoices = []
@@ -49,7 +49,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/webbill/wblogout.sap')
+      get('/webbill/wblogout.sap')
     end
     
   end

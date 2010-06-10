@@ -1,9 +1,10 @@
 module Fetcher
   
+  # Basisklasse für Fetcher
   class Base
     
     def self.inherited(subclass)
-       Fetcher.module_loaded subclass
+      Fetcher.module_loaded subclass
     end
     
     def initialize(account)
@@ -24,7 +25,7 @@ module Fetcher
     
     # Lädt eine Rechnung oder Signatur herunter
     def download(invoice,href)
-      @agent.get(href)
+      get(href)
     end
     
     # Beendet die Session
@@ -33,6 +34,11 @@ module Fetcher
     end
     
     protected
+    
+    # macht einen HTTP-Request
+    def get(path)
+      @agent.get(path)
+    end
     
     def build_invoice(attributes)
       Invoice.new self, attributes

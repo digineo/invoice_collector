@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://www.linklift.de/einloggen/'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.form('mainform')
       form.LL_email    = @account.username
       form.LL_password = @account.password
@@ -14,13 +14,13 @@ module Fetcher
       page = form.submit
       
       # Login fehlgeschlagen?
-      raise LoginException if page.search("h1").text=='Einloggen'
+      raise LoginException if page.at("h1").text=='Einloggen'
     end
     
     def list
-      page = @agent.get('/mein-konto/rechnungen/?t=adv')
+      page = get('/mein-konto/rechnungen/?t=adv')
       
-      h3 = page.search("h3").first.text
+      h3 = page.at("h3").text
       raise "ungültige seite: #{h3}" if h3 != 'Meine Rechnungen'
       
       invoices = []
@@ -55,7 +55,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/ausloggen/')
+      get('/ausloggen/')
     end
     
   end

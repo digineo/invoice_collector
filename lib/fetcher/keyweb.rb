@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://kcm.keyweb.de/index.cgi'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.forms.first
       form.loginname   = @account.username
       form.loginpasswd = @account.password
@@ -30,7 +30,7 @@ module Fetcher
         cells = obj.search("td")
         next if cells.empty?
         
-        link = cells[0].search("a").first
+        link = cells[0].at("a")
         next if !link
         
         number = cells[6].text.match(/\d+/)[0]

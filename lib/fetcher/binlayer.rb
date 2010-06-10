@@ -5,7 +5,7 @@ module Fetcher
     START = 'http://binlayer.com/'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.forms.find{|f|f.action =~ /login/ }
       form.username = @account.username
       form.passwort = @account.password
@@ -19,7 +19,7 @@ module Fetcher
     
     def list
       # Rechnungsübersicht aufrufen
-      page = @agent.get('/konto-auszahlungen.html')
+      page = get('/konto-auszahlungen.html')
       
       invoices = []
       
@@ -28,7 +28,7 @@ module Fetcher
         cells = row.search("td")
         next if cells.empty?
         
-        link = row.search("a").first
+        link = row.at("a")
         next if !link || link['href'] !~ /pdf/
         
         invoices << build_invoice(
@@ -43,7 +43,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/logout.html')
+      get('/logout.html')
     end
     
   end

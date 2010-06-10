@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://login.schlundtech.de/'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.form('login_form')
       form.user     = @account.username
       form.password = @account.password
@@ -18,7 +18,7 @@ module Fetcher
     end
     
     def list
-      page = @agent.get('/billing/')
+      page = get('/billing/')
       
       invoices = []
       
@@ -44,7 +44,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/login/logout.php')
+      get('/login/logout.php')
     end
     
   end

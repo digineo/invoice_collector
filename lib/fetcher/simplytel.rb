@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://www.simplytel.de/'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.forms.first
       form.credential_0 = @account.username
       form.credential_1 = @account.password
@@ -19,7 +19,7 @@ module Fetcher
     
     def list
       # Link zur Rechnungsübersicht
-      page = @agent.get('/rechnungonline.php?action=rechnung24&unteraction=uebersicht&sehen=Alle+Rechnungen+anzeigen')
+      page = get('/rechnungonline.php?action=rechnung24&unteraction=uebersicht&sehen=Alle+Rechnungen+anzeigen')
       
       invoices = []
       
@@ -39,7 +39,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/frei/logout.pl')
+      get('/frei/logout.pl')
     end
     
   end

@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://kis.hosteurope.de/'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.form('f')
       form.kdnummer = @account.username
       form.passwd   = @account.password
@@ -19,7 +19,7 @@ module Fetcher
     
     def list
       # Link zur Rechnungsübersicht
-      page = @agent.get('/kundenkonto/rechnungen/')
+      page = get('/kundenkonto/rechnungen/')
       
       invoices = []
       
@@ -28,7 +28,7 @@ module Fetcher
         cells = row.search("td")
         next if cells.empty?
         
-        input = cells[0].search("input[name=belegnr]").first
+        input = cells[0].at("input[name=belegnr]")
         next if !input
         
         number = input["value"].to_s
@@ -45,7 +45,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/?logout=1')
+      get('/?logout=1')
     end
     
   end

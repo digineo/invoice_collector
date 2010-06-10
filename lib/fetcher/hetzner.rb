@@ -6,7 +6,7 @@ module Fetcher
     
     def login
       # erst die Startseite aufrufen
-      @agent.get(START)
+      get(START)
       
       # Jetzt einloggen
       page = @agent.post(START+'login/check?user='+CGI.escape(@account.username)+'&password='+CGI.escape(@account.password))
@@ -17,7 +17,7 @@ module Fetcher
     
     def list
       # Rechnungsübersicht aufrufen
-      page = @agent.get('/invoice') # /invoice/index/page/2
+      page = get('/invoice') # /invoice/index/page/2
       
       invoices = []
       
@@ -39,7 +39,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/login/logout')
+      get('/login/logout')
     end
     
   end

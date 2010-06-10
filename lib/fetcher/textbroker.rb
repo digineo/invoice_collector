@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://www.textbroker.de/'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.form('login-kunden')
       form.e_mail = @account.username
       form.pass   = @account.password
@@ -18,14 +18,14 @@ module Fetcher
     end
     
     def list
-      page = @agent.get('/c/invoices.php')
+      page = get('/c/invoices.php')
       
       invoices = []
       
       for row in page.search("table[class=basic]/tr")
         
         cells = row.search("td")
-        link  = row.search("a").first
+        link  = row.at("a")
         next unless link
         
         invoices << build_invoice(
@@ -40,7 +40,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/c/logout.php')
+      get('/c/logout.php')
     end
     
   end

@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://wi.hexonet.net/wi/54cd/include.php'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.forms.first
       form.LOGIN_USER     = @account.username
       form.LOGIN_PASSWORD = @account.password
@@ -19,7 +19,7 @@ module Fetcher
     
     def list
       # Link zur Rechnungsübersicht
-      page = @agent.get('/wi/54cd/xirca/invoice/invoicelist.php')
+      page = get('/wi/54cd/xirca/invoice/invoicelist.php')
       
       invoices = []
       
@@ -28,7 +28,7 @@ module Fetcher
         cells = row.search("td")
         next if cells.empty?
         
-        link = cells[0].search("a").first
+        link = cells[0].at("a")
         next if !link
         
         number = link.text
@@ -46,7 +46,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/wi/54cd/logout.php')
+      get('/wi/54cd/logout.php')
     end
     
   end

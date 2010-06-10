@@ -5,7 +5,7 @@ module Fetcher
     START = 'http://www.affili.net/'
     
     def login
-      page   = @agent.get(START)
+      page   = get(START)
       form   = page.forms.first
       fields = form.fields
       fields.find{|f|f.name =~ /Login/}.value    = @account.username
@@ -20,7 +20,7 @@ module Fetcher
     
     def list
       # Rechnungsübersicht
-      page = @agent.get('/Account/payments.aspx')
+      page = get('/Account/payments.aspx')
       
       invoices = []
       
@@ -44,7 +44,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/Login/Logout.aspx')
+      get('/Login/Logout.aspx')
     end
     
   end

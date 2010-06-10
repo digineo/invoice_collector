@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://config.stratoserver.net/'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.form('main')
       form.domainname = @account.username
       form.pass       = @account.password
@@ -60,7 +60,7 @@ module Fetcher
     end
     
     def download(invoice, href)
-      @agent.get('https://dms.strfit.de/'+href)
+      get('https://dms.strfit.de/'+href)
     end
     
     def logout

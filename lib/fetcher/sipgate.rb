@@ -5,7 +5,7 @@ module Fetcher
     START = 'https://secure.sipgate.de/user/index.php'
     
     def login
-      page  = @agent.get(START)
+      page  = get(START)
       form  = page.form('login')
       form.uname = @account.username
       form.passw = @account.password
@@ -18,13 +18,13 @@ module Fetcher
     end
     
     def list
-      page = @agent.get('/user/invoice.php') # ?year=2009
+      page = get('/user/invoice.php') # ?year=2009
       
       invoices = []
       
       for row in page.search("table[class=newtable]/tr")
         
-        link  = row.search("a").first
+        link  = row.at("a")
         next unless link
         
         invoices << build_invoice(
@@ -38,7 +38,7 @@ module Fetcher
     end
     
     def logout
-      @agent.get('/user/logout.php')
+      get('/user/logout.php')
     end
     
   end
