@@ -14,6 +14,7 @@ Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 * hosteurope (Host Europe GmbH)
 * keyweb (Keyweb AG)
 * linklift (LinkLift Ltd.)
+* schlundtech (Schlund Technologies GmbH)
 * simplytel (simply Communication GmbH)
 * sipgate (Sipgate GmbH)
 * strato (Strato AG)
