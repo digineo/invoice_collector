@@ -1,4 +1,13 @@
 %h1=h @page_title = 'Accounts'
 
-%ul
-  = render collection
+%table
+  %thead
+    %tr
+      %th Anbieter
+      %th Account
+      %th Rechnungen
+      %th
+  %tbody
+    = render collection
+
+%p= link_to 'Neuen Account anlegen', :new_account

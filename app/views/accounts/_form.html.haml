@@ -1,0 +1,18 @@
+= object.error_messages
+
+%p
+  = object.label :module
+  %br
+  = object.select :module, Fetcher.module_names, :include_blank => true
+
+%p
+  = object.label :username
+  %br
+  = object.text_field :username
+
+%p
+  = object.label :password
+  %br
+  = object.text_field :password
+
+= object.submit

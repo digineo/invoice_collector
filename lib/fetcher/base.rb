@@ -2,6 +2,10 @@ module Fetcher
   
   class Base
     
+    def self.inherited(subclass)
+       Fetcher.module_loaded subclass
+    end
+    
     def initialize(account)
       @account  = account
       @agent  ||= Mechanize.new

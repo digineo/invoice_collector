@@ -1,4 +1,8 @@
-%li
-  = h account.module
-  \-
-  = link_to h(account.username), [account, :invoices]
+%tr
+  %td= h object.module
+  %td= h account.username
+  %td.right= link_to account.invoices.count, [object, :invoices]
+  %td
+    = link_to 'bearbeiten', [:edit, object]
+    \|
+    = link_to 'löschen', object, :method => :delete, :confirm => 'Diesen Account mit allen Rechnungen löschen?'

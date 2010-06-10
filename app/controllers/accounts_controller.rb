@@ -1,5 +1,11 @@
 class AccountsController < InheritedResources::Base
   
-  actions :index
+  def update
+    update! { :accounts }
+  end
+  
+  def create
+    create! { :accounts }
+  end
   
 end

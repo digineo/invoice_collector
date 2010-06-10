@@ -6,6 +6,8 @@ class Account < ActiveRecord::Base
     end
   end
   
+  validates_presence_of :module, :username, :password
+  
   default_scope :order => 'module, username'
   named_scope :active, :conditions => 'active=TRUE'
   
@@ -55,7 +57,7 @@ class Account < ActiveRecord::Base
   end
   
   def fetcher
-    @fetcher ||= "Fetcher::#{self.module.camelize}".constantize.new(self)
+    @fetcher ||= "Fetcher::#{self.module}".constantize.new(self)
   end
   
 end

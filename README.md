@@ -29,29 +29,25 @@ Für die Druckunterstützung wird außerdem `lpr-cups` mit einem installierten D
 
     git clone http://github.com/digineo/invoice_collector.git
     cd invoice_collector
-    mkdir -p data/invoices
     rake gems:install
     rake db:create
+    rake db:migrate
 
 ## Bedienung
-
-### Anlegen von Accounts
-
-Zum Sammeln von Rechnungen müssen nur noch Accounts angelegt werden:
-
-    script/console
-    > Account.create! :module => 'arcor', :username => 'foo', :password => 'bar'
-    > exit
 
 ### Rechnungen einsammeln
     script/runner Account.fetch_all
 
+Wenn eine `Fetcher::LoginException` geworfen wird, sind möglicherweise die Zugangsdaten für den angezeigten Account ungültig.
+
 ### Frontend
-starten mit:
 
-    script/server
+Das Frontend wird gestartet mit:
 
-beenden mit STRG+C
+    script/server -b 127.0.0.1
+
+Damit ist es per unter `http://localhost:3000/` erreichbar.
+Beenden werden kann es mit `STRG + C`.
 
 ## Erweiterung
 Vermisst du einen Anbieter mit Online-Rechnungen?
