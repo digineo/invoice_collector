@@ -36,7 +36,7 @@ module Fetcher
       
       invoices = []
       
-      for row in page.search("table[id=ctl00_ContentPlaceHolder1_content]/tr")
+      for row in page.at!("table[id=ctl00_ContentPlaceHolder1_content]").search("tr")
         
         cells = row.search("td")
         next if cells.empty?

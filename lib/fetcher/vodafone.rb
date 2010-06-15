@@ -25,7 +25,7 @@ module Fetcher
       
       invoices = []
       
-      for row in page.search("div[id=divTab1]/table/tbody/tr")
+      for row in page.at!("div[id=divTab1]/table/tbody").search("tr")
         
         cells = row.search("td")
         next if cells.empty?

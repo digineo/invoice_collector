@@ -22,7 +22,7 @@ module Fetcher
       
       invoices = []
       
-      for row in page.search("table[class=newtable]/tr")
+      for row in page.at!("table[class=newtable]").search("tr")
         
         link  = row.at("a")
         next unless link

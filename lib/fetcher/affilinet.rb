@@ -24,7 +24,7 @@ module Fetcher
       
       invoices = []
       
-      for row in page.search('table[class=PaymentTable]/tbody/tr[id=RowAlternationStyle]')
+      for row in page.at!('table[class=PaymentTable]/tbody').search('tr[id=RowAlternationStyle]')
         
         cells = row.search("td")
         link  = row.search("a")[0]

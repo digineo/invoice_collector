@@ -26,7 +26,7 @@ module Fetcher
       
       invoices = []
       
-      for row in page.search("form[name=billsForm]/table/tr")
+      for row in page.at!("form[name=billsForm]/table").search("tr")
         
         cells = row.search("td")
         next if cells.empty?

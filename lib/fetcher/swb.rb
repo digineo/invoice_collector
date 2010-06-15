@@ -25,10 +25,10 @@ module Fetcher
       
       invoices = []
       
-      for row in page.search("table[class=tbl-downloads]/tbody/tr")
+      for row in page.at!("table[class=tbl-downloads]/tbody").search("tr")
         
         cells  = row.search("td")
-        link   = row.at("a")
+        link   = row.at!("a")
         params = link['href'].match(/download\('(.+)','(.+)'\)/)
         
         invoices << build_invoice(

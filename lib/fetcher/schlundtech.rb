@@ -14,7 +14,7 @@ module Fetcher
       page = form.submit
       
       # Login fehlgeschlagen?
-      raise LoginException if page.search("div[id=login_name]").empty?
+      raise LoginException unless page.at("div[id=login_name]")
     end
     
     def list

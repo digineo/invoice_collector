@@ -23,7 +23,7 @@ module Fetcher
       
       invoices = []
       
-      for row in page.search("table[align=center][width='600']/tr")
+      for row in page.at!("table[align=center][width='600']").search("tr")
         
         cells = row.search("td")
         next if cells.empty?

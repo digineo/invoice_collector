@@ -25,7 +25,7 @@ module Fetcher
       
       invoices = []
       
-      for row in page.search("div[class=ll_default_small]/table/tbody/tr")
+      for row in page.at!("div[class=ll_default_small]/table/tbody").search("tr")
         
         cells = row.search("td")
         link  = row.search("a").find{|a| a['href'] =~ /pdf/ }
