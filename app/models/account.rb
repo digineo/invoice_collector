@@ -18,7 +18,7 @@ class Account < ActiveRecord::Base
       print "#{account.module} (#{account.username}) ... "
       i      = account.fetch_invoices.count
       total += i
-      puts "#{i} neue Rechnung(en)"
+      puts " #{i} neu"
     end
     puts "#{total} neue Rechnungen insgesamt"
     true
@@ -33,7 +33,10 @@ class Account < ActiveRecord::Base
     fetcher.login
     
     begin
-      for invoice in fetcher.list
+      list = fetcher.list
+      print "#{list.count} Rechnungen gefunden,"
+      
+      for invoice in list
         # existiert schon?
         next if self.invoices.find_by_number(invoice.number)
         
