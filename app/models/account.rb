@@ -48,6 +48,9 @@ class Account < ActiveRecord::Base
             :original  => invoice.original,
             :signature => invoice.signature
           
+          # Drucken, falls gewünscht
+          i.print if autoprint?
+          
           invoices << i
         end
       end

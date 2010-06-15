@@ -3,6 +3,7 @@ class CreateAccounts < ActiveRecord::Migration
     create_table :accounts do |t|
       t.string :module, :null => false
       t.boolean :active,    :null => false, :default => true
+      t.boolean :autoprint, :null => false, :default => false
       t.string :username, :password, :null => false
       t.timestamps :null => false
     end

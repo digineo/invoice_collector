@@ -1,5 +1,7 @@
 class Invoice < ActiveRecord::Base
   
+  belongs_to :account
+  
   has_attached_file :original,  :path => ':rails_root/data/invoices/:id/original.pdf'
   has_attached_file :signature, :path => ':rails_root/data/invoices/:id/signature.:extension'
   
