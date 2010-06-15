@@ -25,7 +25,7 @@ module Fetcher
     protected
     
     def file(href)
-      file = @fetcher.get(self,href)
+      file = @fetcher.download(self,href)
       
       def file.original_filename; filename.gsub('"',''); end
       def file.content_type; end
