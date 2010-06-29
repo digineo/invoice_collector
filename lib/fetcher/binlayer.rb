@@ -2,7 +2,7 @@ module Fetcher
   
   class Binlayer < Base
     
-    START = 'http://binlayer.com/'
+    START = 'https://binlayer.com/'
     
     def login
       page  = get(START)
