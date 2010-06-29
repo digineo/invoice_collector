@@ -1,4 +1,4 @@
-class AccountsController < InheritedResources::Base
+class ImapFiltersController < InheritedResources::Base
   
   def update
     update! { collection_path }

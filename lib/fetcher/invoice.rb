@@ -29,7 +29,9 @@ module Fetcher
       
       def file.original_filename; filename.gsub('"',''); end
       def file.content_type; end
-      def file.size; body.size; end
+      unless file.respond_to?(:size)
+        def file.size; body.size; end
+      end
       def file.to_tempfile
         tempfile = Paperclip::Tempfile.new(File.basename(original_filename))
         tempfile.binmode

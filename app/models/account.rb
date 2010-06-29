@@ -6,7 +6,12 @@ class Account < ActiveRecord::Base
     end
   end
   
-  validates_presence_of :module, :username, :password
+  belongs_to :imap_account
+  belongs_to :imap_filter
+  
+  validates_presence_of :module
+  validates_presence_of :username, :password, :unless => :imap_account_id?
+  validates_presence_of :imap_filter,         :if     => :imap_account_id?
   
   default_scope :order => 'module, username'
   named_scope :active, :conditions => 'active=TRUE'

@@ -1,22 +1,14 @@
-= object.error_messages
+- semantic_form_for resource do |form|
 
-%p
-  = object.label :module
-  %br
-  = object.select :module, Fetcher.module_names, :include_blank => true
-
-%p
-  = object.label :username
-  %br
-  = object.text_field :username
-
-%p
-  = object.label :password
-  %br
-  = object.text_field :password
-
-%p
-  = object.check_box :autoprint
-  = object.label :autoprint
-
-= object.submit
+  - form.inputs do
+    = form.input :active
+    = form.input :autoprint
+    = form.input :module, :as => :select, :collection => Fetcher.module_names.sort, :include_blank => true
+    = form.input :username
+    = form.input :password, :as => :string
+  
+  - form.inputs "IMAP-Einstellungen" do
+    = form.input :imap_account, :as => :select, :collection => ImapAccount.all
+    = form.input :imap_filter,  :as => :select, :collection => ImapFilter.all, :hint => false
+  
+  = form.buttons

@@ -1,0 +1,12 @@
+%h1=h @page_title = 'IMAP-Accounts'
+
+%table
+  %thead
+    %tr
+      %th Host
+      %th Benutzername
+      %th
+  %tbody
+    = render collection
+
+%p= link_to 'Neuen Account anlegen', new_resource_path

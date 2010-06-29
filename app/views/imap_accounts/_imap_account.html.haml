@@ -1,0 +1,7 @@
+%tr
+  %td= h object.host
+  %td= h object.username
+  %td
+    = link_to 'bearbeiten', [:edit, object]
+    \|
+    = link_to 'löschen', object, :method => :delete, :confirm => 'Diesen Account löschen?'

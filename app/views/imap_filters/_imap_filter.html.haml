@@ -1,0 +1,6 @@
+%tr
+  %td= h object.name
+  %td
+    = link_to 'bearbeiten', [:edit, object]
+    \|
+    = link_to 'löschen', object, :method => :delete, :confirm => 'Diesen Filter löschen?'

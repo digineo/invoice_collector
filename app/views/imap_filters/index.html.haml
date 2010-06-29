@@ -1,0 +1,11 @@
+%h1=h @page_title = 'IMAP-Filter'
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th
+  %tbody
+    = render collection
+
+%p= link_to 'Neuen Filter anlegen', new_resource_path

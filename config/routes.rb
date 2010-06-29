@@ -5,6 +5,8 @@ ActionController::Routing::Routes.draw do |map|
     accounts.resources :invoices, :member => {:print => :post, :signature => :get}
   end
   
+  map.resources :imap_accounts
+  map.resources :imap_filters
   
   map.root :controller => "accounts"
 

@@ -1,7 +1,7 @@
 # Invoice Collector
 
 Deine zentrale Sammelstelle für Online-Rechnungen.
-Der InvoiceCollector loggt sich für dich bei verschiedenen Anbietern ein und lädt die vorgefundenen PDF-Rechnungen in ein lokales Archiv.
+Der InvoiceCollector loggt sich für dich bei verschiedenen Anbietern, sowie in IMAP-Accounts ein und lädt die vorgefundenen PDF-Rechnungen in ein lokales Archiv.
 Je nach Anbieter werden auch Datum, Nummer, Betrag und Signatur der Rechnung gespeichert.
 
 ## Unterstütze Anbieter
@@ -21,6 +21,12 @@ Je nach Anbieter werden auch Datum, Nummer, Betrag und Signatur der Rechnung ges
 * swb (swb AG)
 * textbroker (Sario Marketing GmbH)
 * vodafone (Vodafone D2 GmbH)
+
+## IMAP-Support
+
+Über das Frontend können IMAP-Accounts und IMAP-Filter angelegt werden.
+Nach erfolgreicher Verbindung mit dem IMAP-Server werden die Emails über konfigurierbare Suchausdrücke vorgefiltert.
+Aus den gefundenen Emails werden dann über reguläre Ausdrücke Betreff und Dateiname des Anhangs geprüft, um nur die echten Rechnungen zu finden.
 
 ## Installation
 
