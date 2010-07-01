@@ -27,13 +27,13 @@ module Fetcher
       for row in page.at!('table[class=PaymentTable]/tbody').search('tr[id=RowAlternationStyle]')
         
         cells = row.search("td")
-        link  = row.search("a")[0]
-        href  = link['href'].split("=").last
+        link  = row.at("a")
         
-        next unless href.starts_with?('/')
+        # Auszahlungen, die noch "in Bearbeitung" sind, haben noch keinen PDF-Link
+        next if !link || link.text != 'PDF'
         
         invoices << build_invoice(
-          :href   => href,
+          :href   => link['href'].split("=").last,
           :number => cells[2].text,
           :date   => Date.parse(cells[0].text),
           :amount => extract_amount(cells[7].text)
