@@ -2,6 +2,8 @@ module Fetcher
   
   class Imap < Base
     
+    DATE_PATTERN = /(\d\d)\.(\d{4})\.(\d\d)/
+    
     def initialize(account)
       @account         = account.imap_account
       @filter          = account.imap_filter
@@ -40,7 +42,8 @@ module Fetcher
         invoices << build_invoice(
           :href   => attributes["UID"],
           :number => attachment.param["NAME"].match(@filename_regexp)[1],
-          :date   => Date.parse(subject)
+          # Datum aus dem Betreff nehmen, wenn nicht vorhanden dann Datum der Email
+          :date   => subject.match(DATE_PATTERN) ? Date.parse(subject) : envelope.date.to_date
         )
       end
       
