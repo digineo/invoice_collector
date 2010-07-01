@@ -22,6 +22,9 @@ module Fetcher
       # Nachrichten suchen
       message_ids = @imap.search(@filter.search_attr)
       
+      # keine Nachrichten gefunden?
+      return invoices if message_ids.empty?
+      
       # Umschlag und Body-Struktur runterladen
       for mail in @imap.fetch(message_ids,["UID","ENVELOPE","BODYSTRUCTURE"])
         
