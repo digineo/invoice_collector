@@ -17,6 +17,7 @@ Je nach Anbieter werden auch Datum, Nummer, Betrag und Signatur der Rechnung ges
 * schlundtech (Schlund Technologies GmbH)
 * simplytel (simply Communication GmbH)
 * sipgate (Sipgate GmbH)
+* sponsorads (Sponsorads GmbH & Co. KG)
 * strato (Strato AG)
 * swb (swb AG)
 * textbroker (Sario Marketing GmbH)
