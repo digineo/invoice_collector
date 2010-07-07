@@ -34,14 +34,14 @@ module Fetcher
         envelope   = attributes["ENVELOPE"]
         subject    = envelope.subject
         body       = attributes["BODYSTRUCTURE"]
-        attachment = body.parts.find{|p| p.param && p.param["NAME"] =~ @filename_regexp }
+        attachment = find_attachment(body.parts, @filename_regexp )
         
         # attachment nicht gefunden oder betreff passt nicht?
         next if !attachment || subject !~  @subject_regexp
         
         invoices << build_invoice(
           :href   => attributes["UID"],
-          :number => attachment.param["NAME"].match(@filename_regexp)[1],
+          :number => part_name(attachment).match(@filename_regexp)[1],
           # Datum aus dem Betreff nehmen, wenn nicht vorhanden dann Datum der Email
           :date   => subject.match(DATE_PATTERN) ? Date.parse(subject) : envelope.date.to_date
         )
@@ -64,6 +64,21 @@ module Fetcher
     end
     
     protected
+    
+    # Findet ein Attachment, dessen Namen auf den übergebenen regulären Ausdruck passt
+    def find_attachment(parts, regex)
+      for part in parts
+        return part if part_name(part) =~ regex
+      end
+      
+      nil
+    end
+    
+    # Ermittelt den (Datei)Namen eines Parts
+    def part_name(part)
+      param = part.param || part.disposition.param
+      param["NAME"] || param["FILENAME"]
+    end
     
     # Liest das Attachment aus und sorgt dafür,
     # dass es von Paperclip gespeichert werden kann
