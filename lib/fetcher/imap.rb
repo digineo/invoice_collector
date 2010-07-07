@@ -34,7 +34,7 @@ module Fetcher
         envelope   = attributes["ENVELOPE"]
         subject    = envelope.subject
         body       = attributes["BODYSTRUCTURE"]
-        attachment = body.parts.find{|p|p.param["NAME"] =~ @filename_regexp }
+        attachment = body.parts.find{|p| p.param && p.param["NAME"] =~ @filename_regexp }
         
         # attachment nicht gefunden oder betreff passt nicht?
         next if !attachment || subject !~  @subject_regexp
