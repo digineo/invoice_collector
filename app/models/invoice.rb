@@ -9,6 +9,8 @@ class Invoice < ActiveRecord::Base
   validates_format_of   :number, :with => /^[A-Z0-9_-]+$/i
   validates_attachment_presence :original
   
+  named_scope :latest, :order => 'date DESC', :limit => 10
+  
   def print(args='')
    # Datei an den Drucker schicken
     unless system("lpr #{original.path} #{args}")

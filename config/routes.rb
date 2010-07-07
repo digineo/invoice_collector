@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :imap_accounts
   map.resources :imap_filters
   
-  map.root :controller => "accounts"
+  map.root :controller => "home"
 
   # See how all your routes lay out with "rake routes"
 

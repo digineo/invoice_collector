@@ -1,0 +1,11 @@
+%tr
+  %td= l object.date
+  %td
+    = h object.account.module
+    %small (#{link_to h(object.account.username), [object.account,:invoices] })
+  %td.right= object.amount ? number_to_currency(object.amount) : '-'
+  %td= object.number
+  %td
+    = link_to 'download', account_invoice_path(object.account,object,:format => :pdf)
+    \|
+    = link_to 'drucken', [:print,object.account,object], :method => :post

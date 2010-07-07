@@ -1,0 +1,17 @@
+%h1=h @page_title = "Letzte Rechnungen"
+
+%table
+  %thead
+    %tr
+      %th Datum
+      %th Konto
+      %th Betrag
+      %th Nummer
+  %tfoot
+    %tr
+      %td
+      %td
+      %td.right= number_to_currency @sum
+      %td
+  %tbody
+    = render :partial => 'invoice', :collection => @invoices
