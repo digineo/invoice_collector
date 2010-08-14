@@ -14,6 +14,7 @@ Je nach Anbieter werden auch Datum, Nummer, Betrag und Signatur der Rechnung ges
 * hosteurope (Host Europe GmbH)
 * keyweb (Keyweb AG)
 * linklift (LinkLift Ltd.)
+* pluscard (PLUSCARD Service-Gesellschaft für Kreditkarten-Processing mbH - Kreditkartenabrechnungen von MasterCard/Visa)
 * schlundtech (Schlund Technologies GmbH)
 * simplytel (simply Communication GmbH)
 * sipgate (Sipgate GmbH)
