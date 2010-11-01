@@ -76,8 +76,17 @@ module Fetcher
     
     # Ermittelt den (Datei)Namen eines Parts
     def part_name(part)
-      param = part.param || part.disposition.param
-      param["NAME"] || param["FILENAME"]
+      parts = [part]
+      parts << part.disposition if part.respond_to?(:disposition)
+      parts << part.parts.first if part.respond_to?(:parts)
+      
+      for p in parts.compact
+        param = p.param
+        filename = param["NAME"] || param["FILENAME"]
+        return filename if filename
+      end
+      
+      nil
     end
     
     # Liest das Attachment aus und sorgt dafür,
