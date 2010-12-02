@@ -81,7 +81,7 @@ module Fetcher
       parts << part.parts.first if part.respond_to?(:parts)
       
       for p in parts.compact
-        param = p.param
+        param = p.param || next
         filename = param["NAME"] || param["FILENAME"]
         return filename if filename
       end
