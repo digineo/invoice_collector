@@ -11,11 +11,29 @@ class Invoice < ActiveRecord::Base
   
   named_scope :latest, :order => 'date DESC', :limit => 10
   
+  # Rechnungsbetrag ermitteln, falls er noch fehlt
+  after_create :update_amount!
+  
+  # Datei an den Drucker schicken
   def print(args='')
-   # Datei an den Drucker schicken
     unless system("lpr #{original.path} #{args}")
       raise "printing failed with status #{$?.to_i}"
     end
+  end
+  
+  # Gibt die Rechnung als Plaintext zurück
+  def text
+    @text ||= `pdftotext '#{original.path}' -`
+  end
+  
+  # Versucht den Rechungsbetrag zu ermitteln, wenn er noch fehlt
+  def update_amount!
+    return amount if amount
+    
+    self.amount ||= Parser.extract_amount(self)
+    save! if amount
+    
+    self.amount
   end
   
 end
