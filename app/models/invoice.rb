@@ -12,7 +12,8 @@ class Invoice < ActiveRecord::Base
   named_scope :latest, :order => 'date DESC', :limit => 10
   
   # Rechnungsbetrag ermitteln, falls er noch fehlt
-  after_create :update_amount!
+  # geht wegen Paperclip nicht im after_create
+  after_save :update_amount!
   
   # Datei an den Drucker schicken
   def print(args='')
