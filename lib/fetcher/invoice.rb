@@ -27,16 +27,22 @@ module Fetcher
     def file(href)
       file = @fetcher.download(self,href)
       
+      # Mechanize <-> Paperclip Monkeypatch
       def file.original_filename; filename.gsub('"',''); end
       def file.content_type; end
       unless file.respond_to?(:size)
         def file.size; body.size; end
       end
+      
       def file.to_tempfile
         tempfile = Paperclip::Tempfile.new(File.basename(original_filename))
         tempfile.binmode
         tempfile.puts(body)
         tempfile
+      end
+      
+      def file.read
+        body
       end
       
       file
