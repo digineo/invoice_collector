@@ -32,12 +32,13 @@ Aus den gefundenen Emails werden dann über reguläre Ausdrücke Betreff und Dat
 
 ## Installation
 
-Voraussetzungen sind `git, rake, ruby, rubygems` sowie das `rails`-gem in der Version 2.3.8.
+Voraussetzungen sind `git, rake, ruby` und `rubygems`.
 Für die Druckunterstützung wird außerdem `lpr-cups` mit einem installierten Drucker benötigt.
 
     git clone http://github.com/digineo/invoice_collector.git
     cd invoice_collector
-    rake gems:install
+    gem install bundler
+    bundle install
     rake db:create
     rake db:migrate
 
