@@ -39,10 +39,10 @@ module Fetcher
       for row in page.at!("table[id=ctl00_ContentPlaceHolder1_content]").search("tr")
         
         cells = row.search("td")
-        next if cells.empty?
+        
+        next if cells.size != 6
         
         links = cells[0].search("a")
-        next if links.size != 3
         
         pdf_link = links.find{|l| l['title'] =~ /PDF/ }
         sig_link = links.find{|l| l['title'] =~ /Signatur/ }
