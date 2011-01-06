@@ -1,14 +1,13 @@
 source :gemcutter
-gem "rails", "~> 2.3.10"
+gem "rails", "~> 3.0.3"
 gem "mysql"
 
-gem "mechanize"
-gem "paperclip"
+gem "mechanize", "~> 1.0.0"
+gem "paperclip", "~> 2.3.8"
 
-gem 'haml'
-gem 'inherited_resources', '~> 1.0.6'
+gem 'haml', '~> 3.0'
+gem 'inherited_resources', '~> 1.1.0'
 gem 'formtastic', '~> 1.2'
-
 
 group :development do
   # bundler requires these gems in development

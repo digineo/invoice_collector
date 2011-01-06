@@ -1,16 +1,21 @@
-!!! XML
-!!! Strict
-%html{:xmlns => 'http://www.w3.org/1999/xhtml'}
+!!!
+%html
   %head
     %title= h @page_title
     = stylesheet_link_tag 'screen'
+    = csrf_meta_tag
   %body
     %ul
-      %li= link_to 'Letzte Rechnungen', :root
+      %li= link_to 'Letzte Rechnungen', '/'
       %li= link_to 'Konten', :accounts
       %li= link_to 'IMAP-Accounts', :imap_accounts
       %li= link_to 'IMAP-Filter',   :imap_filters
+    
     - flash.each do |type, message|
       %div{ :class => type }
         %p= message
+    
     = yield
+    
+    = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'
+    = javascript_include_tag 'rails', :cache => true

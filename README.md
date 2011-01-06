@@ -32,7 +32,7 @@ Aus den gefundenen Emails werden dann über reguläre Ausdrücke Betreff und Dat
 
 ## Installation
 
-Voraussetzungen sind `git, rake, ruby` und `rubygems`.
+Voraussetzungen sind `git, ruby 1.9.2` und `bundler`.
 Für die Druckunterstützung wird außerdem `lpr-cups` mit einem installierten Drucker benötigt.
 
     git clone http://github.com/digineo/invoice_collector.git
@@ -45,7 +45,7 @@ Für die Druckunterstützung wird außerdem `lpr-cups` mit einem installierten D
 ## Bedienung
 
 ### Rechnungen einsammeln
-    script/runner Account.fetch_all
+    rails runner Account.fetch_all
 
 Wenn eine `Fetcher::LoginException` geworfen wird, sind möglicherweise die Zugangsdaten für den angezeigten Account ungültig.
 
@@ -53,7 +53,7 @@ Wenn eine `Fetcher::LoginException` geworfen wird, sind möglicherweise die Zuga
 
 Das Frontend wird gestartet mit:
 
-    script/server -b 127.0.0.1
+    rails server -b 127.0.0.1
 
 Damit ist es per unter `http://localhost:3000/` erreichbar.
 Beenden werden kann es mit `STRG + C`.

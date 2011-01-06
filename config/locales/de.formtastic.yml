@@ -1,0 +1,16 @@
+de:
+  formtastic:
+    labels:
+      search: IMAP-Suchoptionen
+      subject: Betreff
+      filename: Dateiname
+    hints:
+      account:
+        username: Ist bei IMAP nicht relevant, dient nur zur Anzeige.
+        password: Muss bei IMAP nicht angegeben werden.
+      imap_filter:
+        search:
+          'Mögliche Optionen zum SEARCH-Befehl stehen im <a href="http://tools.ietf.org/html/rfc1730#page-27">RFC zu IMAP</a>. Beispiel:<br />
+          <code>FROM<br />billing@example.com<br />SUBJECT<br />Ihre Rechnung</code>'
+        subject: z.B. <code>^Ihre Rechnung \d+ vom \d\d\.\d\d.\d{4}</code>
+        filename: z.B. <code>^re(\d+)\.pdf$</code>. Die erste Klammer muss die Rechnungsnummer enthalten!

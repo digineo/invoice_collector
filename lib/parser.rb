@@ -37,9 +37,9 @@ module Parser
   
 end
 
-require_dependency RAILS_ROOT + '/lib/parser/base'
+require_dependency "#{Rails.root}/lib/parser/base"
 
 # Alle Fetcher laden
-for file in Dir.glob(RAILS_ROOT + '/lib/parser/*.rb')
+for file in Dir.glob(Rails.root + '/lib/parser/*.rb')
   require_dependency file
 end

@@ -1,6 +1,6 @@
 %tr
-  %td= h object.name
+  %td= h imap_filter.name
   %td
-    = link_to 'bearbeiten', [:edit, object]
+    = link_to 'bearbeiten', [:edit, imap_filter]
     \|
-    = link_to 'löschen', object, :method => :delete, :confirm => 'Diesen Filter löschen?'
+    = link_to 'löschen', imap_filter, :method => :delete, :confirm => 'Diesen Filter löschen?'

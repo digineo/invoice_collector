@@ -14,7 +14,7 @@ class Account < ActiveRecord::Base
   validates_presence_of :imap_filter,         :if     => :imap_account_id?
   
   default_scope :order => 'module, username'
-  named_scope :active, :conditions => 'active=TRUE'
+  scope :active, :conditions => 'active=TRUE'
   
   # Holt Rechnungen von allen Accounts ab
   def self.fetch_all

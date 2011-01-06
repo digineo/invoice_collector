@@ -1,12 +1,12 @@
 %tr
-  %td= l object.date
-  %td= object.number
-  %td.right= object.amount ? number_to_currency(object.amount) : '-'
+  %td= l invoice.date
+  %td= invoice.number
+  %td.right= invoice.amount ? number_to_currency(invoice.amount) : '-'
   %td
-    = link_to 'download', account_invoice_path(@account,object,:format => :pdf)
-    - if object.signature?
+    = link_to 'download', account_invoice_path(@account, invoice, :format => :pdf)
+    - if invoice.signature?
       \|
-      = link_to 'Signatur', [:signature, @account, object]
+      = link_to 'Signatur', [:signature, @account, invoice]
   %td
     \|
-    = link_to 'drucken', [:print,@account,object], :method => :post
+    = link_to 'drucken', [:print, @account, invoice], :method => :post

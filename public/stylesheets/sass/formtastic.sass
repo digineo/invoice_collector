@@ -46,6 +46,7 @@ form.formtastic
       border: none
       display: list-item
   fieldset
+    overflow: auto
     &.inputs
     &.buttons
       padding-left: 25%
@@ -53,106 +54,108 @@ form.formtastic
     &.buttons li
       float: left
       padding-right: 0.5em
-    display: inline-block
-    &:after
-      content: "."
-      display: block
-      height: 0
-      clear: both
-      visibility: hidden
+    > ol > li
+      padding: 0.5em 0
+      margin-top: -0.5em
+      margin-bottom: 1em
+      overflow: auto
+      &.required, &.optional, &.error
+      label
+        display: block
+        width: 25%
+        float: left
+        padding-top: .2em
+      > li label
+        line-height: 100%
+        padding-top: 0
+        input
+          line-height: 100%
+          vertical-align: middle
+          margin-top: -0.1em
+      fieldset
+        position: relative
+        legend
+          position: absolute
+          width: 95%
+          padding-top: 0.1em
+          left: 0px
+          span, &.label label
+            position: absolute
+        ol
+          float: left
+          width: 74%
+          margin: 0
+          padding: 0 0 0 25%
+          li
+            padding: 0
+            border: 0
+      p
+        &.inline-hints
+          color: #666
+          margin: 0.5em 0 0 25%
+        &.inline-errors
+          color: #cc0000
+          margin: 0.5em 0 0 25%
+      ul.errors
+        color: #cc0000
+        margin: 0.5em 0 0 25%
+        list-style: square
+        li
+          padding: 0
+          border: none
+          display: list-item
+      &.string input, &.password input, &.numeric input, &.email input, &.url input, &.phone input, &.search input
+        width: 72%
+      &.string input[size], &.password input[size], &.numeric input[size], &.email input[size], &.url input[size], &.phone input[size], &.search input[size]
+        width: auto
+        max-width: 72%
+      &.text textarea
+        width: 72%
+        &[cols]
+          width: auto
+          max-width: 72%
+    ol li.hidden
+      display: none
+    > ol > li
+      &.boolean label
+        padding-left: 25%
+        width: auto
+        input
+          margin: 0 0.5em 0 0.2em
+      &.radio fieldset, &.check_boxes fieldset
+        overflow: visible
+        ol
+          margin-bottom: -0.5em
+          li
+            margin: 0.1em 0 0.5em 0
+            overflow: visible
+            label
+              float: none
+              width: 100%
+              input
+                margin-right: 0.2em
+      &.date fieldset ol li, &.time fieldset ol li, &.datetime fieldset ol li
+        float: left
+        width: auto
+        margin: 0 .3em 0 0
+      &.date fieldset ol li label, &.time fieldset ol li label, &.datetime fieldset ol li label
+        display: none
+      &.date fieldset ol li label input, &.time fieldset ol li label input, &.datetime fieldset ol li label input
+        display: inline
+        margin: 0
+        padding: 0
 
 /* SEMANTIC ERRORS
  *--------------------------------------------------------------------------------------------------
 
 /* FIELDSETS & LISTS
  *--------------------------------------------------------------------------------------------------
-
-/* clearfixing the fieldsets
-
-html[xmlns] form.formtastic fieldset
-  display: block
-
-* html form.formtastic fieldset
-  height: 1%
+/* clearing contained floats
 
 /* INPUT LIs
  *--------------------------------------------------------------------------------------------------
-
-form.formtastic fieldset > ol > li
-  margin-bottom: 1.5em
-  display: inline-block
-  &:after
-    content: "."
-    display: block
-    height: 0
-    clear: both
-    visibility: hidden
-
-/* clearfixing the li's
-
-html[xmlns] form.formtastic fieldset > ol > li
-  display: block
-
-* html form.formtastic fieldset > ol > li
-  height: 1%
-
-form.formtastic fieldset
-  > ol > li
-    &.required, &.optional, &.error
-    label
-      display: block
-      width: 25%
-      float: left
-      padding-top: .2em
-    > li label
-      line-height: 100%
-      padding-top: 0
-      input
-        line-height: 100%
-        vertical-align: middle
-        margin-top: -0.1em
-    fieldset
-      position: relative
-      legend
-        position: absolute
-        width: 95%
-        padding-top: 0.1em
-        left: 0px
-        span, &.label label
-          position: absolute
-      ol
-        float: left
-        width: 74%
-        margin: 0
-        padding: 0 0 0 25%
-        li
-          padding: 0
-          border: 0
-    p
-      &.inline-hints
-        color: #666
-        margin: 0.5em 0 0 25%
-      &.inline-errors
-        color: #cc0000
-        margin: 0.5em 0 0 25%
-    ul.errors
-      color: #cc0000
-      margin: 0.5em 0 0 25%
-      list-style: square
-      li
-        padding: 0
-        border: none
-        display: list-item
-    &.string input
-      max-width: 74%
-    &.password input
-      max-width: 13em
-    &.numeric input
-      max-width: 74%
-    &.text textarea
-      width: 74%
-  ol li.hidden
-    display: none
+/* padding and negative margin juggling is for Firefox
+/* clearing contained floats
 
 /* LABELS
  *--------------------------------------------------------------------------------------------------
@@ -166,48 +169,17 @@ form.formtastic fieldset
 /* INLINE ERRORS
  *--------------------------------------------------------------------------------------------------
 
-/* STRING & NUMERIC OVERRIDES
+/* STRING, NUMERIC, PASSWORD, EMAIL, URL, PHONE & SEARCH OVERRIDES
  *--------------------------------------------------------------------------------------------------
 
 /* TEXTAREA OVERRIDES
  *--------------------------------------------------------------------------------------------------
 
 /* HIDDEN OVERRIDES
- *The dual declarations are required because of our clearfix display hack on the LIs, which is more
- *specific than the more general rule below. TODO: Revist the clearing hack and this rule.
  *--------------------------------------------------------------------------------------------------
-
-html[xmlns] form.formtastic fieldset ol li.hidden
-  display: none
 
 /* BOOLEAN OVERRIDES
  *--------------------------------------------------------------------------------------------------
-
-form.formtastic fieldset > ol > li
-  &.boolean label
-    padding-left: 25%
-    width: auto
-    input
-      margin: 0 0.5em 0 0.2em
-  &.radio fieldset ol, &.check_boxes fieldset ol
-    margin-bottom: -0.6em
-    li
-      margin: 0.1em 0 0.5em 0
-      label
-        float: none
-        width: 100%
-        input
-          margin-right: 0.2em
-  &.date fieldset ol li, &.time fieldset ol li, &.datetime fieldset ol li
-    float: left
-    width: auto
-    margin: 0 .3em 0 0
-  &.date fieldset ol li label, &.time fieldset ol li label, &.datetime fieldset ol li label
-    display: none
-  &.date fieldset ol li label input, &.time fieldset ol li label input, &.datetime fieldset ol li label input
-    display: inline
-    margin: 0
-    padding: 0
 
 /* RADIO OVERRIDES
  *--------------------------------------------------------------------------------------------------

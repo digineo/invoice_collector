@@ -9,7 +9,7 @@ class Invoice < ActiveRecord::Base
   validates_format_of   :number, :with => /^[A-Z0-9_-]+$/i
   validates_attachment_presence :original
   
-  named_scope :latest, :order => 'date DESC', :limit => 10
+  scope :latest, :order => 'date DESC', :limit => 10
   
   # Rechnungsbetrag ermitteln, falls er noch fehlt
   # geht wegen Paperclip nicht im after_create

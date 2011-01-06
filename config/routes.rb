@@ -1,15 +1,16 @@
-ActionController::Routing::Routes.draw do |map|
-  # The priority is based upon order of creation: first created -> highest priority.
+InvoiceCollector::Application.routes.draw do
   
-  map.resources :accounts do |accounts|
-    accounts.resources :invoices, :member => {:print => :post, :signature => :get}
+  resources :accounts do
+    resources :invoices do
+      member do
+        get :signature
+        post :print
+      end
+    end
   end
   
-  map.resources :imap_accounts
-  map.resources :imap_filters
+  resources :imap_accounts
+  resources :imap_filters
   
-  map.root :controller => "home"
-
-  # See how all your routes lay out with "rake routes"
-
+  match '/' => 'home#index'
 end
