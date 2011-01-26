@@ -1,3 +1,6 @@
+require 'mail'
+require 'net/imap'
+
 module Fetcher
   
   class Imap < Base
@@ -39,6 +42,7 @@ module Fetcher
         # attachment nicht gefunden oder betreff passt nicht?
         next if !attachment || subject !~  @subject_regexp
         
+        
         invoices << build_invoice(
           :href   => attributes["UID"],
           :number => part_name(attachment).match(@filename_regexp)[1],
@@ -53,10 +57,10 @@ module Fetcher
     def download(invoice, uid)
       # Email komplett runterladen
       msg  = @imap.uid_fetch(uid,'RFC822')[0].attr['RFC822']
-      mail = TMail::Mail.parse(msg)
+      mail = Mail::Message.new(msg)
       
       # Anhang holen
-      read_attachment mail.attachments.find{|a|a.original_filename =~ @filename_regexp }
+      read_attachment mail.attachments.find{|a|a.filename =~ @filename_regexp }
     end
     
     def logout
@@ -92,10 +96,10 @@ module Fetcher
     # Liest das Attachment aus und sorgt dafür,
     # dass es von Paperclip gespeichert werden kann
     def read_attachment(attachment)
-      data = attachment.gets(nil)
+      data = attachment.read
       
       # Dateiname setzen
-      data.instance_variable_set("@filename", attachment.original_filename)
+      data.instance_variable_set("@filename", attachment.filename)
       def data.filename
         @filename
       end
