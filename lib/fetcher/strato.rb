@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Fetcher
   
   class Strato < Base
@@ -26,7 +28,7 @@ module Fetcher
       
       begin
         page = @invoices_link.click.iframes.first.click
-      rescue Mechanize::ResponseCodeError:
+      rescue Mechanize::ResponseCodeError
         # funk
         if attempts < 3
           attempts += 1

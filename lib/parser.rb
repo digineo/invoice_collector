@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # Parst PDFs, um den Rechnungsbetrag zu ermitteln
 module Parser
   

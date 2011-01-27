@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # Sammelt Rechnungen ein
 module Fetcher
   
@@ -25,6 +27,6 @@ end
 require_dependency "#{Rails.root}/lib/fetcher/invoice"
 
 # Alle Fetcher laden
-for file in Dir.glob(Rails.root + '/lib/fetcher/*.rb')
+for file in Dir.glob("#{Rails.root}/lib/fetcher/*.rb")
   require_dependency file
 end

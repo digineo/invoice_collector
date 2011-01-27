@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Fetcher
   
   class Pluscard < Base
