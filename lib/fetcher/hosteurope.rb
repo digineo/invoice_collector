@@ -39,7 +39,7 @@ module Fetcher
           :href   => "/kundenkonto/rechnungen/index.php?inline=yes&belegnr="+number,
           :number => number,
           :date   => Date.parse(cells[3].text),
-          :amount => extract_amount(cells[5].text)
+          :amount => extract_amount(cells[6].text)
         )
       end
       
