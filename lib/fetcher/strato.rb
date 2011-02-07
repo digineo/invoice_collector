@@ -51,7 +51,7 @@ module Fetcher
         
         invoices << build_invoice(
           :href     => pdf_link['href'],
-          :href_sig => sig_link['href'],
+          :href_sig => sig_link ? sig_link['href'] : nil,
           :number => links.first.text,
           :date   => Date.parse(cells[2].text),
           :amount => extract_amount(cells[3].text)
