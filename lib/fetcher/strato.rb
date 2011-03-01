@@ -4,56 +4,43 @@ module Fetcher
   
   class Strato < Base
     
-    START = 'https://config.stratoserver.net/'
+    START = 'https://www.strato.de/apps/CustomerService'
     
     def login
       page  = get(START)
-      form  = page.form('main')
-      form.domainname = @account.username
-      form.pass       = @account.password
+      form  = page.forms.first
+      form.identifier = @account.username
+      form.passwd     = @account.password
       
       # Einloggen
-      page = @agent.submit(form)
+      page  = @agent.submit(form, form.buttons.first)
       
       # Login fehlgeschlagen?
-      raise LoginException if page.uri.to_s.ends_with?('/index.php')
+      raise LoginException unless page.uri.to_s.ends_with?('node=kds_CustomerEntryPage')
       
-      # wichtige Links
-      @invoices_link = page.links.find{|l|l.text=='Online invoices'}
-      @logout_link   = page.links.find{|l|l.text=='Logout'}
+      @session_id = CGI.parse(page.uri.query)["sessionID"].first.to_s
     end
     
     def list
-      attempts = 0
-      
-      begin
-        page = @invoices_link.click.iframes.first.click
-      rescue Mechanize::ResponseCodeError
-        # funk
-        if attempts < 3
-          attempts += 1
-          retry
-        end
-      end
+      page = get "/apps/CustomerService?sessionID=#{@session_id}&node=OnlineInvoice&source=menu"
       
       invoices = []
       
-      for row in page.at!("table[id=ctl00_ContentPlaceHolder1_content]").search("tr")
+      for row in page.at!("table.sf-table tbody").search("tr")
         
         cells = row.search("td")
+        links = row.search("a")
         
         next if cells.size != 6
         
-        links = cells[0].search("a")
-        
-        pdf_link = links.find{|l| l['title'] =~ /PDF/ }
-        sig_link = links.find{|l| l['title'] =~ /Signatur/ }
+        pdf_link = links.find{|l| l['title'] =~ /pdf/i }
+        sig_link = links.find{|l| l['title'] =~ /signatur/i }
         
         invoices << build_invoice(
           :href     => pdf_link['href'],
           :href_sig => sig_link ? sig_link['href'] : nil,
-          :number => links.first.text,
-          :date   => Date.parse(cells[2].text),
+          :number => links.first.text.strip,
+          :date   => Date.parse(cells[0].text),
           :amount => extract_amount(cells[3].text)
         )
       end
@@ -61,12 +48,8 @@ module Fetcher
       invoices
     end
     
-    def download(invoice, href)
-      get('https://dms.strfit.de/'+href)
-    end
-    
     def logout
-      @logout_link.click
+      get "/apps/CustomerService?sessionID=#{@session_id}&node=kds_Logout"
     end
     
   end
