@@ -28,7 +28,7 @@ module Fetcher
         match  = row.child["onclick"].match %r(/invoice/download/number/(\w+)/date/(\w+)) rescue next
         number = match[1]
         date   = Date.parse(match[2])
-        href   = "/invoice/deliver?number=#{number}&date=#{match[2]}"
+        href   = "/invoice/deliver?number=#{number}&date=#{match[2]}&type=pdf"
         
         invoices << build_invoice(
           :href   => href,
