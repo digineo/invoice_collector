@@ -1,14 +1,14 @@
-- semantic_form_for resource do |form|
+= semantic_form_for resource do |form|
 
-  - form.inputs do
+  = form.inputs do
     = form.input :active
     = form.input :autoprint
     = form.input :module, :as => :select, :collection => Fetcher.module_names.sort, :include_blank => true
     = form.input :username
     = form.input :password, :as => :string
   
-  - form.inputs "IMAP-Einstellungen" do
+  = form.inputs "IMAP-Einstellungen" do
     = form.input :imap_account, :as => :select, :collection => ImapAccount.all
     = form.input :imap_filter,  :as => :select, :collection => ImapFilter.all, :hint => false
   
-  = form.buttons
+  = form.actions

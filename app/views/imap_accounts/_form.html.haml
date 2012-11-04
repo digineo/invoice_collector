@@ -1,8 +1,8 @@
-- semantic_form_for resource do |form|
-  - form.inputs do
+= semantic_form_for resource do |form|
+  = form.inputs do
     = form.input :host
     = form.input :port
     = form.input :ssl
     = form.input :username
     = form.input :password, :as => :string
-  = form.buttons
+  = form.actions
