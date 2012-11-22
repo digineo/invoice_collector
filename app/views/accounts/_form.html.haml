@@ -11,4 +11,7 @@
     = form.input :imap_account, :as => :select, :collection => ImapAccount.all
     = form.input :imap_filter,  :as => :select, :collection => ImapFilter.all, :hint => false
 
+  = form.inputs "Webhooks" do
+    = form.input :webhook_data, :as => :text, :input_html => {:rows => 5}
+
   = form.actions

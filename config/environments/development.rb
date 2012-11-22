@@ -28,3 +28,5 @@ InvoiceCollector::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+
+WEBHOOK_URL = 'http://ceo%%40example.com:foobar@localhost:3001/organizations/%{organization_id}/account_entries'

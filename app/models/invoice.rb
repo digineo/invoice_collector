@@ -37,3 +37,7 @@ class Invoice < ActiveRecord::Base
   end
 
 end
+
+require_dependency 'invoice/callbacks'
+
+Invoice.send :include, Invoice::Callbacks

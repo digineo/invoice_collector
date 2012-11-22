@@ -15,6 +15,7 @@ gem 'jquery-rails'
 
 gem 'inherited_resources', '~> 1.3.0'
 gem 'formtastic', '~> 2.0'
+gem 'rest-client'
 
 group :development, :test do
   gem 'test-unit'
