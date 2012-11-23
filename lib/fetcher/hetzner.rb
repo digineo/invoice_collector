@@ -23,9 +23,10 @@ module Fetcher
       
       invoices = []
       
-      for row in page.search("div[class=box_wide]")
+      page.search("div[class=box_wide]").each do |row|
         
-        match  = row.child["onclick"].match %r(/invoice/download/number/(\w+)/date/(\w+)) rescue next
+        match  = row.child["onclick"].match %r(/invoice/download/number/(\w+)/date/(\w+))
+        next unless match
         number = match[1]
         date   = Date.parse(match[2])
         href   = "/invoice/deliver?number=#{number}&date=#{match[2]}&type=pdf"
