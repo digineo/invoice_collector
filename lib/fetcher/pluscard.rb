@@ -18,6 +18,7 @@ module Fetcher
       # Login fehlgeschlagen?
       raise LoginException if page.uri.path != '/kris/saldo/index.php'
       
+      @csrf    = page.forms[0].CSRFToken
       @numbers = page.search("input[name=krednr]").collect{|input| input["value"] }
       
       raise ArgumentError, "Keine Kreditkarten gefunden" if @numbers.empty?
@@ -25,16 +26,16 @@ module Fetcher
     
     def list
       invoices = []
-      
-      for number in @numbers
+      @numbers.each do |number|
         select_card number
         page = get '/kris/abrechnung/index.php'
-        rows = page.at!("table[cellspacing='1']").children
-        
-        # spaltenüberschriften entfernen
-        rows.shift
-        
-        for row in rows
+
+        next if page.body.include?("Es liegen keine Abrechnungen vor.")
+
+        # Zeilen ohne die Spaltenüberschriften
+        rows = page.at!("table[cellspacing='1']").elements[1..-1]
+
+        rows.each do |row|
           link = row.at!("a")
           href = link['href']
           date = row.search("./td")[1].text
@@ -42,7 +43,7 @@ module Fetcher
           if href =~ /neue_abrechnung/
             # zwischenseite aufrufen *seufz*
             page = get href
-            link = page.links.find{|l| l.href =~ /\/download\/.+\.pdf$/}
+            link = page.links.find{|l| l.href =~ /\/download\/.+\.pdf/}
             href = link.href
           end
           
@@ -71,11 +72,13 @@ module Fetcher
     
     # Wählt eine Kreditkarte aus, die ausgewählte wird in der Session gespeichert
     def select_card(number)
-      get '/kris/common/navigation.php?abrechnung_neu=J&krednr=' + number
+      get '/kris/common/navigation.php', abrechnung_neu: "J", krednr: number
     end
     
-    def get(path)
-      super path.sub(/^\.\./,'/kris')
+    def get(path, params={})
+      url = path.sub(/^\.\./,'/kris')
+      url << "?" << params.merge(CSRFToken: @csrf).to_param if @csrf && !url.include?("?")
+      super url
     end
     
   end
