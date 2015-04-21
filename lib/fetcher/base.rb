@@ -27,7 +27,11 @@ module Fetcher
     
     # Lädt eine Rechnung oder Signatur herunter
     def download(invoice,href)
-      get(href)
+      if href.respond_to?(:submit)
+        href.submit
+      else
+        get(href)
+      end
     end
     
     # Beendet die Session
