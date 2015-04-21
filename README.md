@@ -9,6 +9,7 @@ Je nach Anbieter werden auch Datum, Nummer, Betrag und Signatur der Rechnung ges
 * arcor (Vodafone D2 GmbH)
 * affilinet (affilinet GmbH)
 * binlayer (Binlayer GmbH)
+* dhlbusiness (DHL Geschäftskunden)
 * hetzner (Hetzner Online AG)
 * hexonet (HEXONET GmbH)
 * hosteurope (Host Europe GmbH)
