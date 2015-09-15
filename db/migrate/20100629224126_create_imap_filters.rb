@@ -6,7 +6,7 @@ class CreateImapFilters < ActiveRecord::Migration
       t.string :subject, :filename, :null => false
       t.timestamps :null => false
     end
-    
+
     add_column :accounts, :imap_filter_id, :integer
   end
 

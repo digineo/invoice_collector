@@ -8,7 +8,7 @@ class CreateImapAccounts < ActiveRecord::Migration
     change_table :imap_accounts do |t|
       t.index [:host,:username], :unique => true
     end
-    
+
     add_column :accounts, :imap_account_id, :integer
   end
 

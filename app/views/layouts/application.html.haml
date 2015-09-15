@@ -10,11 +10,11 @@
       %li= link_to 'Konten', :accounts
       %li= link_to 'IMAP-Accounts', :imap_accounts
       %li= link_to 'IMAP-Filter',   :imap_filters
-    
+
     - flash.each do |type, message|
       %div{ :class => type }
         %p= message
-    
+
     = yield
-    
+
     = javascript_include_tag 'application'
