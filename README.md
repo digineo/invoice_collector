@@ -16,6 +16,7 @@ Je nach Anbieter werden auch Datum, Nummer, Betrag und Signatur der Rechnung ges
 * keyweb (Keyweb AG)
 * linklift (LinkLift Ltd.)
 * oekopost (Oekopost Deutschland GmbH)
+* omg (OMG.de GmbH)
 * pluscard (PLUSCARD Service-Gesellschaft für Kreditkarten-Processing mbH - Kreditkartenabrechnungen von MasterCard/Visa)
 * schlundtech (Schlund Technologies GmbH)
 * simplytel (simply Communication GmbH)
