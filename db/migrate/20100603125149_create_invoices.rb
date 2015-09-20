@@ -6,7 +6,6 @@ class CreateInvoices < ActiveRecord::Migration
       t.date     :date
       t.decimal  :amount, :precision => 9, :scale => 2
       t.string   :original_file_name, :null => false
-      t.string   :signature_file_name
       t.datetime :created_at, :null => false
     end
     change_table :invoices do |t|

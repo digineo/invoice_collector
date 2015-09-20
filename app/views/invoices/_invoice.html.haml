@@ -4,9 +4,6 @@
   %td.right= invoice.amount ? number_to_currency(invoice.amount) : '-'
   %td
     = link_to 'download', account_invoice_path(@account, invoice, :format => :pdf)
-    - if invoice.signature?
-      \|
-      = link_to 'Signatur', [:signature, @account, invoice]
   %td
     \|
     = link_to 'drucken', [:print, @account, invoice], :method => :post

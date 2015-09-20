@@ -22,15 +22,6 @@ class InvoicesController < InheritedResources::Base
     end
   end
 
-  # Download der Signatur
-  def signature
-    filename = resource.signature_file_name.split('.')
-    filename[0] = resource.number
-
-    send_file resource.original.path,
-      :filename    => filename.join(".")
-  end
-
   def print
     resource.print
     respond_to do |format|

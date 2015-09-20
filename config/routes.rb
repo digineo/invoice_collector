@@ -3,7 +3,6 @@ InvoiceCollector::Application.routes.draw do
   resources :accounts do
     resources :invoices do
       member do
-        get :signature
         post :print
       end
     end

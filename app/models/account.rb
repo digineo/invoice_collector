@@ -50,8 +50,7 @@ class Account < ActiveRecord::Base
             :number    => invoice.number,
             :date      => invoice.date,
             :amount    => invoice.amount,
-            :original  => invoice.original,
-            :signature => invoice.signature
+            :original  => invoice.original
 
           # Drucken, falls gewünscht
           i.print if autoprint?
