@@ -1,9 +1,9 @@
-# encoding: UTF-8
-
 module Fetcher
 
   # Basisklasse für Fetcher
   class Base
+
+    delegate :get, :post, to: :@agent
 
     def self.inherited(subclass)
       Fetcher.module_loaded subclass
@@ -40,11 +40,6 @@ module Fetcher
     end
 
     protected
-
-    # macht einen HTTP-Request
-    def get(path)
-      @agent.get(path)
-    end
 
     def build_invoice(attributes)
       Invoice.new self, attributes
