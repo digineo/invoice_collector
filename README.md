@@ -13,6 +13,7 @@ Je nach Anbieter werden auch Datum, Nummer, Betrag und Signatur der Rechnung ges
 * hetzner (Hetzner Online AG)
 * hexonet (HEXONET GmbH)
 * hosteurope (Host Europe GmbH)
+* jacob_elektronik (Jacob Elektronik GmbH)
 * keyweb (Keyweb AG)
 * linklift (LinkLift Ltd.)
 * oekopost (Oekopost Deutschland GmbH)
