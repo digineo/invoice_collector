@@ -35,10 +35,10 @@ module Fetcher
         next if !link || link.text != 'PDF'
 
         invoices << build_invoice(
-          :href   => link['href'].split("=").last,
-          :number => cells[2].text,
-          :date   => Date.parse(cells[0].text),
-          :amount => extract_amount(cells[7].text)
+          href:   link['href'].split("=").last,
+          number: cells[2].text,
+          date:   cells[0].text,
+          amount: cells[7].text,
         )
       end
 

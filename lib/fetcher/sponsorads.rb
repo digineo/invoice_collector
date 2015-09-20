@@ -36,10 +36,10 @@ module Fetcher
         next if !link
 
         invoices << build_invoice(
-          :href   => link['href'],
-          :number => cells[0].text,
-          :date   => Date.parse(cells[2].text),
-          :amount => extract_amount(row.at!("td/b").text)
+          href:   link['href'],
+          number: cells[0].text,
+          date:   cells[2].text,
+          amount: row.at!("td/b").text,
         )
       end
 

@@ -34,10 +34,10 @@ module Fetcher
         next if !link || link['href'] !~ /pdf/
 
         invoices << build_invoice(
-          :href   => link['href'],
-          :number => cells[0].text,
-          :date   => Date.parse(cells[1].text),
-          :amount => extract_amount(cells[2].text)
+          href:   link['href'],
+          number: cells[0].text,
+          date:   cells[1].text,
+          amount: cells[2].text,
         )
       end
 

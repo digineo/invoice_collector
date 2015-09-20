@@ -41,10 +41,10 @@ module Fetcher
         date = Date.parse(cells[0].text)
 
         invoices << build_invoice(
-          :href   => href,
-          :number => date.to_s.gsub('-',''),
-          :date   => date,
-          :amount => extract_amount(cells[1].text)
+          href:   href,
+          number: date.to_s.gsub('-',''),
+          date:   date,
+          amount: cells[1].text,
         )
       end
 

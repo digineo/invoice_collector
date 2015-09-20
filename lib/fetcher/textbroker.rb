@@ -31,10 +31,10 @@ module Fetcher
         next unless link
 
         invoices << build_invoice(
-          :href   => '/c/' + link['href'],
-          :number => link.text.match(/Rechnung (\S+)/)[1],
-          :date   => cells[1].text,
-          :amount => extract_amount(cells[3].text)
+          href:   '/c/' + link['href'],
+          number: link.text.match(/Rechnung (\S+)/)[1],
+          date:   cells[1].text,
+          amount: cells[3].text,
         )
       end
 

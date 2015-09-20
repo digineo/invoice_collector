@@ -40,10 +40,10 @@ module Fetcher
         next if href !~ /Download/
 
         invoices << build_invoice(
-          :href   => href,
-          :number => cells[1].text.match(/Rechnung\D(\d+)/)[1],
-          :date   => Date.parse(cells[0].text),
-          :amount => extract_amount(cells[2].text)
+          href:   href,
+          number: cells[1].text.match(/Rechnung\D(\d+)/)[1],
+          date:   cells[0].text,
+          amount: cells[2].text,
         )
       end
 

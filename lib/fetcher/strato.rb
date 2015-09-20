@@ -34,14 +34,12 @@ module Fetcher
         next if cells.size != 6
 
         pdf_link = links.find{|l| l['title'] =~ /pdf/i }
-        sig_link = links.find{|l| l['title'] =~ /signatur/i }
 
         invoices << build_invoice(
-          :href     => pdf_link['href'],
-          :href_sig => sig_link ? sig_link['href'] : nil,
-          :number => links.first.text.strip,
-          :date   => Date.parse(cells[0].text),
-          :amount => extract_amount(cells[3].text)
+          href:   pdf_link['href'],
+          number: links.first.text.strip,
+          date:   cells[0].text,
+          amount: cells[3].text,
         )
       end
 

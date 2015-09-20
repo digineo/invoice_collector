@@ -47,7 +47,7 @@ module Fetcher
           href:    href,
           number:  number,
           date:    subpage.at(".PlentyWebMyAccountOrderOverviewDeliveryValue").text.strip,
-          amount:  extract_amount(subpage.at(".PlentyTotalAmountDetail").text),
+          amount:  subpage.at(".PlentyTotalAmountDetail").text,
         )
       end
 

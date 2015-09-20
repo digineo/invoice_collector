@@ -37,10 +37,10 @@ module Fetcher
         next if number !~ /^\d+$/
 
         invoices << build_invoice(
-          :href   => link['href'],
-          :number => number,
-          :date   => Date.parse(cells[1].text),
-          :amount => extract_amount(cells[3].text)
+          href:   link['href'],
+          number: number,
+          date:   cells[1].text,
+          amount: cells[3].text,
         )
       end
 

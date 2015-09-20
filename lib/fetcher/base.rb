@@ -50,11 +50,6 @@ module Fetcher
       Invoice.new self, attributes
     end
 
-    # extrahiert einen Betrag aus dem text
-    def extract_amount(value)
-      value.match(/[\d.,]*\d+[.,]\d+/)[0].gsub(/[.,]/,'').to_f/100
-    end
-
   end
 
 end

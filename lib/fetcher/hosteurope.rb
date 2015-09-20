@@ -36,10 +36,10 @@ module Fetcher
         number = input["value"].to_s
 
         invoices << build_invoice(
-          :href   => "/kundenkonto/rechnungen/index.php?inline=yes&belegnr="+number,
-          :number => number,
-          :date   => Date.parse(cells[3].text),
-          :amount => extract_amount(cells[6].text)
+          href:   "/kundenkonto/rechnungen/index.php?inline=yes&belegnr="+number,
+          number: number,
+          date:   cells[3].text,
+          amount: cells[6].text,
         )
       end
 

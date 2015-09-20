@@ -31,8 +31,8 @@ module Fetcher
         invoices << build_invoice(
           href:    link['href'],
           number:  link.text,
-          date:    Date.parse(cells[2].text),
-          amount:  extract_amount(cells[3].text.match(/\d+,\d+/)[0])
+          date:    cells[2].text,
+          amount:  cells[3].text.match(/\d+,\d+/)[0],
         )
       end
 

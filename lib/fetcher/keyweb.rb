@@ -38,10 +38,10 @@ module Fetcher
         number = cells[6].text.match(/\d+/)[0]
 
         invoices << build_invoice(
-          :href   => link['href'],
-          :number => number,
-          :date   => Date.parse(cells[4].text),
-          :amount => extract_amount(cells[2].text)
+          href:   link['href'],
+          number: number,
+          date:   cells[4].text,
+          amount: cells[2].text,
         )
       end
 

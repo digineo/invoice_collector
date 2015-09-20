@@ -2,7 +2,7 @@
 
 Deine zentrale Sammelstelle für Online-Rechnungen.
 Der InvoiceCollector loggt sich für dich bei verschiedenen Anbietern, sowie in IMAP-Accounts ein und lädt die vorgefundenen PDF-Rechnungen in ein lokales Archiv.
-Je nach Anbieter werden auch Datum, Nummer, Betrag und Signatur der Rechnung gespeichert.
+Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 
 ## Unterstütze Anbieter
 

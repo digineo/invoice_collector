@@ -1,27 +1,35 @@
-# encoding: UTF-8
-
 module Fetcher
 
   class Invoice
 
     attr_reader :href, :number, :date, :amount
 
-    def initialize(fetcher,attributes)
+    def initialize(fetcher, attributes)
       @fetcher  = fetcher
-      for key in [:href, :href_sig, :number, :date, :amount]
-        instance_variable_set("@#{key}", attributes.delete(key))
-      end
 
-      raise ArgumentError, "ungültige Parameter: #{attributes.keys.join(' ')}" if attributes.any?
+      attributes.each do |key,value|
+        case key
+        when :href, :number
+          # nothing special
+        when :amount
+          if String === value
+            value = value.match(/[\d.,]*\d+[.,]\d+/)[0].gsub(/[.,]/,'').to_f/100
+          end
+        when :date
+          if String === value
+            value = Date.parse(value)
+          end
+        else
+          raise ArgumentError, "invalid key: #{key}"
+        end
+
+        instance_variable_set "@#{key}", value
+      end
     end
 
     # Datei mit Dateiname und Inhalt
     def original
       file(@href) if @href
-    end
-
-    def signature
-      file(@href_sig) if @href_sig
     end
 
     protected

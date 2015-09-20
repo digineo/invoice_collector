@@ -34,7 +34,7 @@ module Fetcher
         next unless link
 
         kind   = cells[0].text
-        amount = extract_amount(cells[4].text)
+        amount = Parser.normalize_amount(cells[4].text)
 
         case kind
           when 'Rechnung'
@@ -46,10 +46,10 @@ module Fetcher
         end
 
         invoices << build_invoice(
-          :href   => link['href'],
-          :number => cells[2].text,
-          :date   => cells[1].text,
-          :amount => amount
+          href:   link['href'],
+          number: cells[2].text,
+          date:   cells[1].text,
+          amount: amount,
         )
       end
 
