@@ -27,6 +27,7 @@ Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 * strato (Strato AG)
 * swb (swb AG)
 * textbroker (Sario Marketing GmbH)
+* twenty_three_media (23Media GmbH)
 * vodafone (Vodafone D2 GmbH)
 
 ## IMAP-Support
