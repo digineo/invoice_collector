@@ -6,6 +6,7 @@ Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 
 ## Unterstütze Anbieter
 
+* amazon
 * arcor (Vodafone D2 GmbH)
 * affilinet (affilinet GmbH)
 * binlayer (Binlayer GmbH)
