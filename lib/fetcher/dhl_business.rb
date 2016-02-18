@@ -16,7 +16,7 @@ module Fetcher
       session.fill_in  'Passwort',     with: @account.password
       session.click_on "Anmelden"
       session.has_content? "Startseite"
-      sleep 1
+      sleep 2
     end
 
     def list
@@ -25,6 +25,7 @@ module Fetcher
       session.click_on "Services"
       session.click_on "Rechnungssuche"
       session.has_content? "Startseite"
+      session.has_content? "3 Monate"#, wait: 10
       session.select   '3 Monate'
       session.click_on "Suchen"
       session.execute_script 'AdfDhtmlPage.prototype._doFullPostback = function(a,b,c){
