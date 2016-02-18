@@ -24,7 +24,7 @@ module Fetcher
     RECIPIENT = nil
 
     def login
-      @agent.user_agent_alias = 'Mac Safari'
+      @agent.user_agent_alias = 'Android'
       @agent.follow_meta_refresh = true
       @agent.redirect_ok = true
 
@@ -32,7 +32,6 @@ module Fetcher
       form = page.forms.first
       form.email    = @account.username
       form.password = @account.password
-      form['ap_signin_existing_radio'] = "1"
 
       # Einloggen
       page = form.submit
