@@ -35,7 +35,8 @@ module Fetcher
         next if number !~ /^[\d\.]+$/
 
         date = case cells[1].text
-          when /Heute/ then Date.today
+          when /Heute/   then Date.today
+          when /Gestern/ then Date.today-1
           else Date.parse(cells[1].text)
         end
 
