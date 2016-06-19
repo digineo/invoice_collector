@@ -19,6 +19,7 @@ Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 * linklift (LinkLift Ltd.)
 * oekopost (Oekopost Deutschland GmbH)
 * omg (OMG.de GmbH)
+* netcup (netcup GmbH)
 * pluscard (PLUSCARD Service-Gesellschaft für Kreditkarten-Processing mbH - Kreditkartenabrechnungen von MasterCard/Visa)
 * schlundtech (Schlund Technologies GmbH)
 * simplytel (simply Communication GmbH)
