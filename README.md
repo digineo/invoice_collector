@@ -40,8 +40,7 @@ Aus den gefundenen Emails werden dann über reguläre Ausdrücke Betreff und Dat
 
 ## Installation
 
-Voraussetzungen sind `git, ruby 1.9.2` und `bundler`.
-Für die Druckunterstützung wird außerdem `lpr-cups` mit einem installierten Drucker benötigt.
+Voraussetzungen sind `git, ruby 2.x` und `bundler`.
 
     git clone http://github.com/digineo/invoice_collector.git
     cd invoice_collector
