@@ -2,11 +2,11 @@ module Fetcher
 
   class JacobElektronik < Base
 
-    START = 'https://direkt.jacob-computer.de/'
+    START = 'https://direkt.jacob-computer.de/login.html'
 
     def login
       page = get(START)
-      form = page.form('form1')
+      form = page.form('form')
       form.login    = @account.username
       form.passwort = @account.password
 
@@ -22,7 +22,6 @@ module Fetcher
       page = get "/bestellstatus.html"
 
       invoices = []
-
       page.search(".topline tr").each do |row|
         link  = row.at("a[href*=Rechnung]")
         cells = row.search("./td")
@@ -32,7 +31,7 @@ module Fetcher
           href:    link['href'],
           number:  link.text,
           date:    cells[2].text,
-          amount:  cells[3].text.match(/\d+,\d+/)[0],
+          amount:  cells[3].text.match(/\d+,\d+/).try(:[], 0)
         )
       end
 
