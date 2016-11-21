@@ -12,6 +12,7 @@ module Fetcher
     def initialize(account)
       @account  = account
       @agent  ||= Mechanize.new
+      #@agent.log = Logger.new $stderr
     end
 
     # Startet die Session

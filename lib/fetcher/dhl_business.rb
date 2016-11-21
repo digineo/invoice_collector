@@ -21,10 +21,8 @@ module Fetcher
 
     def list
       invoices = []
-
-      session.click_on "Services"
-      session.click_on "Rechnungssuche"
-      session.has_content? "Startseite"
+      session.visit 'https://www.dhl-geschaeftskundenportal.de/webcenter/faces/wcnav_externalId/billingArchive'
+      session.has_content? "Rechnungssuche"
       session.has_content? "3 Monate"#, wait: 10
       session.select   '3 Monate'
       session.click_on "Suchen"
@@ -76,7 +74,7 @@ module Fetcher
           href:   body,
           number: number,
           date:   date,
-          amount: amount.match(/[\d.,]*\d+[.,]\d+/)[0].gsub(/[.,]/,'').to_f/100 * 1.19,
+          amount: amount.match(/[\d.,]*\d+[.,]\d+/)[0].gsub(/[.,]/,'').to_f/100,
         )
       end
 

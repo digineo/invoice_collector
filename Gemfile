@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 3.2.21"
-gem "mysql2"
+gem "mysql2", '0.3.18'
 
 gem "capybara"
 gem "poltergeist"

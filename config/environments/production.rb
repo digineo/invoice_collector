@@ -10,7 +10,7 @@ InvoiceCollector::Application.configure do
   config.action_controller.perform_caching = true
 
   # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  #config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
   # For nginx:
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
@@ -47,3 +47,5 @@ InvoiceCollector::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
+
+WEBHOOK_URL = 'https://invoices%%40digineo.de:QBKHjhm2EUwd@accounting.digineo.de/organizations/%{organization_id}/account_entries'

@@ -2,7 +2,7 @@ module Fetcher
 
   class JacobElektronik < Base
 
-    START = 'https://direkt.jacob-computer.de/login.html'
+    START = 'https://direkt.jacob.de/login.html'
 
     def login
       page = get(START)
@@ -39,7 +39,7 @@ module Fetcher
     end
 
     def logout
-      post '/index.php', "submit_logout" => "Logout"
+      get '/account/logout'
     end
 
   end
