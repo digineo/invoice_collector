@@ -6,9 +6,9 @@ module Fetcher
 
     def login
       page = get(START)
-      form = page.form('form')
-      form.login    = @account.username
-      form.passwort = @account.password
+      form = page.forms_with(method: 'POST').first
+      form.logindata    = @account.username
+      form.passworddata = @account.password
 
       # Einloggen
       page = @agent.submit(form)
