@@ -51,12 +51,14 @@ module Fetcher
           columns = order.search(".a-column").map(&:elements).map{|elements| elements.map(&:text).map(&:strip) if elements.size == 2 }.compact.to_h
           amount  = columns["Summe"]
           date    = columns["Bestellung aufgegeben"]
-          link    = order.at!("a[href*=invoice]")
+
+          number       = order.at("a[href*=orderID]")['href'].match(/orderID=([\d-]+)/)[1]
+          popover      = order.at!("[data-a-popover*=invoice]")
+          popover_page = get(JSON.parse(popover['data-a-popover'])['url'])
+          link         = popover_page.at!("a[href*=invoice]")
+          href         = link['href']
 
           next if link.text =~ /(anfordern|nicht verfügbar)/
-
-          href    = link['href']
-          number  = href.match(/orderId=([\d-]+)/)[1]
 
           if RECIPIENT
             details = get("https://www.amazon.de/gp/css/summary/print.html?ie=UTF8&orderID=#{number}")
@@ -64,8 +66,10 @@ module Fetcher
             next if address !~ RECIPIENT
           end
 
+          href = "https://www.amazon.de#{href}" if href.starts_with?("/")
+
           invoices << build_invoice(
-            href:   "https://www.amazon.de#{href}",
+            href:   href,
             number: number,
             date:   self.class.parse_date(date),
             amount: amount,
