@@ -21,28 +21,31 @@ module Fetcher
 
     def list
       # Link zur Rechnungsübersicht
-      page = get('/wi/54cd/xirca/invoice/invoicelist.php')
-
+      offset   = 0
       invoices = []
+      begin
+        page = get("/wi/54cd/xirca/invoice/invoicelist.php?c_first=#{offset}")
 
-      for row in page.at!("table[align=center][width='600']").search("tr")
+        for row in page.at!("table[align=center][width='600']").search("tr")
 
-        cells = row.search("td")
-        next if cells.empty?
+          cells = row.search("td")
+          next if cells.empty?
 
-        link = cells[0].at("a")
-        next if !link
+          link = cells[0].at("a")
+          next if !link
 
-        number = link.text
-        next if number !~ /^\d+$/
+          number = link.text
+          next if number !~ /^\d+$/
 
-        invoices << build_invoice(
-          href:   link['href'],
-          number: number,
-          date:   cells[1].text,
-          amount: cells[3].text,
-        )
-      end
+          invoices << build_invoice(
+            href:   link['href'],
+            number: number,
+            date:   cells[1].text,
+            amount: cells[3].text,
+          )
+        end
+        offset += 100
+      end while offset == invoices.count
 
       invoices
     end
