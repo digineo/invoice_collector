@@ -6,7 +6,7 @@ module Fetcher
   # Liste der geladenen Module
   @@modules = []
 
-  class LoginException < Exception
+  class LoginException < StandardError
   end
 
   # Ein Modul wurde geladen
