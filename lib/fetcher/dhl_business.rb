@@ -15,15 +15,14 @@ module Fetcher
       session.fill_in  'Benutzername', with: @account.username
       session.fill_in  'Passwort',     with: @account.password
       session.click_on "Anmelden"
-      session.has_content? "Startseite"
-      sleep 2
+      raise LoginException unless session.has_content? "Startseite"
     end
 
     def list
       invoices = []
       session.visit 'https://www.dhl-geschaeftskundenportal.de/webcenter/faces/wcnav_externalId/billingArchive'
       session.has_content? "Rechnungssuche"
-      session.has_content? "3 Monate"#, wait: 10
+      session.has_content? "Rechnungszeitraum"#, wait: 10
       session.select   '3 Monate'
       session.click_on "Suchen"
       session.execute_script 'AdfDhtmlPage.prototype._doFullPostback = function(a,b,c){
