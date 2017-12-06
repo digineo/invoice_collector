@@ -19,11 +19,18 @@ class Account < ActiveRecord::Base
   # Holt Rechnungen von allen Accounts ab
   def self.fetch_all
     total = 0
-    for account in active.all
-      print "#{account.module} (#{account.username}) ... "
-      i      = account.fetch_invoices.count
-      total += i
-      puts " #{i} neu"
+    active.each do |account|
+      print "#{account.id} #{account.module} (#{account.username}) ... "
+      begin
+        i      = account.fetch_invoices.count
+        total += i
+        puts " #{i} neu"
+      rescue Fetcher::LoginException
+        puts $!
+      rescue
+        puts $!
+        STDERR.puts $!.backtrace
+      end
     end
     puts "#{total} neue Rechnungen insgesamt"
     true

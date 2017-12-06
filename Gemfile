@@ -20,5 +20,6 @@ gem 'rest-client'
 group :development, :test do
   gem 'test-unit'
   gem 'launchy'
-  gem 'byebug'
 end
+
+gem 'pry-byebug'
