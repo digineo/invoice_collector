@@ -28,6 +28,7 @@ Je nach Anbieter werden auch Datum, Nummer und Betrag der Rechnung gespeichert.
 * sponsorads (Sponsorads GmbH & Co. KG)
 * strato (Strato AG)
 * swb (swb AG)
+* telekom (Deutsche Telekom AG Geschäftskunden)
 * textbroker (Sario Marketing GmbH)
 * twenty_three_media (23Media GmbH)
 * vodafone (Vodafone D2 GmbH)
