@@ -24,7 +24,7 @@ module Fetcher
           date:   row[0],
           number: row[1],
           amount: (Parser.normalize_amount(row[3])*1.19).round(2),
-          href:   row[6].match(%r(href="([^"]+)"))[1],
+          href:   row.last.match(%r(href="([^"]+)"))[1],
         )
       end
     end
