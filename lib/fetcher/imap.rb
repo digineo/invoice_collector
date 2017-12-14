@@ -42,12 +42,31 @@ module Fetcher
         body       = attributes["BODYSTRUCTURE"]
         attachment = find_attachment(body.parts, @filename_regexp )
 
-        # attachment nicht gefunden oder betreff passt nicht?
-        next if !attachment || subject !~ @subject_regexp
+        # Attachment nicht gefunden?
+        next unless attachment
+        filename_match = part_name(attachment).match(@filename_regexp)
+
+        # Betreff passt nicht?
+        subject_match = subject.match(@subject_regexp)
+        next unless subject_match
+
+        # Nummer nach Regexp-Gruppe finden
+        number = nil
+        [subject_match, filename_match].each do |match|
+          begin
+            number = match['number']
+            break
+          rescue IndexError
+            # Gruppe existiert nicht
+          end
+        end
+
+        # Fallback
+        number ||= filename_match[1]
 
         invoices << build_invoice(
           :href   => attributes["UID"],
-          :number => part_name(attachment).match(@filename_regexp)[1],
+          :number => number,
           # Datum aus dem Betreff nehmen, wenn nicht vorhanden dann Datum der Email
           :date   => subject.match(DATE_PATTERN) ? Date.parse(subject) : envelope.date.to_date
         )
