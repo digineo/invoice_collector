@@ -4,17 +4,17 @@ module Fetcher
 
   class Hetzner < Base
 
-    START = 'https://robot.your-server.de/'
+    START = 'https://accounts.hetzner.com/'
 
     def login
       # erst die Startseite aufrufen
       get(START)
 
       # Jetzt einloggen
-      page = @agent.post(START+'login/check?user='+CGI.escape(@account.username)+'&password='+CGI.escape(@account.password))
+      page = @agent.post(START+'login_check', _username: @account.username, _password: @account.password)
 
       # Login fehlgeschlagen?
-      raise LoginException if page.uri.path != '/'
+      raise LoginException if page.uri.path != '/account/masterdata'
     end
 
     def list
@@ -23,18 +23,12 @@ module Fetcher
 
       invoices = []
 
-      page.search("div[class=box_wide]").each do |row|
-
-        match  = row.child["onclick"].match %r(/invoice/download/number/(\w+)/date/(\w+))
-        next unless match
-        number = match[1]
-        date   = Date.parse(match[2])
-        href   = "/invoice/deliver?number=#{number}&date=#{match[2]}&type=pdf"
-
+      page.search("ul.invoice-list > li").each do |row|
         invoices << build_invoice(
-          :href   => href,
-          :number => number,
-          :date   => date
+          number: row['id'],
+          href:   row.at!("a[href*=pdf]")['href'],
+          date:   row.at!('.invoice-date').text,
+          amount: row.at!('.invoice-value').text,
         )
       end
 
@@ -42,7 +36,7 @@ module Fetcher
     end
 
     def logout
-      get('/login/logout')
+      get('/logout')
     end
 
   end
