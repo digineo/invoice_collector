@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    @invoices = Invoice.latest
+    @invoices = Invoice.limit(10)
   end
 
 end

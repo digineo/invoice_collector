@@ -1,6 +1,6 @@
 class Account < ActiveRecord::Base
 
-  has_many :invoices, :order => 'date DESC', :dependent => :destroy do
+  has_many :invoices, :dependent => :destroy do
     def sum_amount
       collect{|i| i.amount.to_f }.sum
     end
@@ -13,8 +13,8 @@ class Account < ActiveRecord::Base
   validates_presence_of :username, :password, :unless => :imap_account_id?
   validates_presence_of :imap_filter,         :if     => :imap_account_id?
 
-  default_scope :order => 'module, username'
-  scope :active, :conditions => 'active=TRUE'
+  default_scope ->{ order('module, username') }
+  scope :active, ->{ where active: true }
 
   # Holt Rechnungen von allen Accounts ab
   def self.fetch_all
@@ -48,7 +48,7 @@ class Account < ActiveRecord::Base
       list = fetcher.list
       print "#{list.count} Rechnungen gefunden,"
 
-      for invoice in list
+      list.each do |invoice|
         # existiert schon?
         next if self.invoices.find_by_number(invoice.number)
 
@@ -57,7 +57,7 @@ class Account < ActiveRecord::Base
             :number    => invoice.number,
             :date      => invoice.date,
             :amount    => invoice.amount,
-            :original  => invoice.original
+            :original  => StringIO.new(invoice.original.body)
 
           # Drucken, falls gewünscht
           i.print if autoprint?

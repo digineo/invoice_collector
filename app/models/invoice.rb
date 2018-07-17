@@ -2,13 +2,14 @@ class Invoice < ActiveRecord::Base
 
   belongs_to :account
 
-  has_attached_file :original,  :path => ':rails_root/data/invoices/:id/original.pdf'
+  has_attached_file    :original,  :path => ':rails_root/data/invoices/:id/original.pdf'
+  do_not_validate_attachment_file_type :original
 
   validates_presence_of :account_id
-  validates_format_of   :number, :with => /^[A-Z0-9._-]+$/i
+  validates_format_of   :number, :with => /\A[A-Z0-9\.\/_-]+\z/i
   validates_attachment_presence :original
 
-  scope :latest, :order => 'date DESC', :limit => 10
+  default_scope ->{ order("date DESC") }
 
   # Rechnungsbetrag ermitteln, falls er noch fehlt
   # geht wegen Paperclip nicht im after_create

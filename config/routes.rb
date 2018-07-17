@@ -11,5 +11,5 @@ InvoiceCollector::Application.routes.draw do
   resources :imap_accounts
   resources :imap_filters
 
-  match '/' => 'home#index'
+  root 'home#index'
 end
