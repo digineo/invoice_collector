@@ -50,4 +50,4 @@ InvoiceCollector::Application.configure do
   config.active_support.deprecation = :notify
 end
 
-WEBHOOK_URL = 'https://invoices%%40digineo.de:QBKHjhm2EUwd@accounting.digineo.de/organizations/%{organization_id}/account_entries'
+WEBHOOK_URL = 'https://invoices%%40digineo.de:QBKHjhm2EUwd@accounting.digineo.de/api/v1/organizations/%{organization_id}/vouchers'

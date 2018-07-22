@@ -20,22 +20,31 @@ module Invoice::Callbacks
     data = YAML.load(account.webhook_data).symbolize_keys
 
     url = WEBHOOK_URL % {
-      :organization_id => data.delete(:organization_id)
+      organization_id: data.delete(:organization_id)
     }
 
     # Betrag übernehmen, Vorzeichen wechseln wenn gewünscht
-    flip_sign = data.delete(:flip_sign)
+    flip_sign             = data.delete(:flip_sign)
+    tax_key_number        = data.delete(:tax_key_number)
+    contra_account_number = data.delete(:contra_account_number)
 
     data[:amount] = flip_sign ? -amount : amount if amount?
 
+    if contra_account_number
+      data[:positions_attributes] = { 0 => {
+        amount:         data[:amount],
+        account_number: contra_account_number,
+        tax_key_number: tax_key_number,
+      }}
+    end
+
     result = RestClient.post url, {
-      :account_entry => data.reverse_merge(
-        :attachment       => original.to_file,
-        :date             => date,
-        :reference_number => number,
-        :account_number   => 1200
+      voucher: data.reverse_merge(
+        attachment:       File.open(original.path),
+        date:             date,
+        reference_number: number,
       )
-    }, :accept => 'application/json'
+    }, accept: 'application/json'
 
 #  rescue RestClient::UnprocessableEntity => e
 #    puts e.http_body
