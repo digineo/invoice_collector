@@ -29,12 +29,18 @@ module Fetcher
       @agent.redirect_ok = true
 
       page = get(START)
+
+      # E-Mail-Adresse
       form = page.forms.first
-      form.email    = @account.username
+      form.email = @account.username
+      page = form.submit
+
+      # Passwort
+      form = page.forms.first
       form.password = @account.password
+      page = form.submit
 
       # Einloggen
-      page = form.submit
       page = get(START)
 
       # Login fehlgeschlagen?
