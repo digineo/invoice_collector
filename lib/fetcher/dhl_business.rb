@@ -22,8 +22,15 @@ module Fetcher
       invoices = []
       session.visit 'https://www.dhl-geschaeftskundenportal.de/webcenter/faces/wcnav_externalId/billingArchive'
       session.has_content? "Rechnungssuche"
-      session.has_content? "Rechnungszeitraum"#, wait: 10
-      session.select   '3 Monate'
+      session.has_content? "Rechnungszeitraum", wait: 10
+
+=begin
+      session.click_on "Freie Zeitraumsuche"
+      session.fill_in('Datum von', with: '30.03.2018')
+      session.fill_in('Datum bis', with: '15.05.2018')
+=end
+
+      #session.select   '3 Monate'
       session.click_on "Suchen"
       session.execute_script 'AdfDhtmlPage.prototype._doFullPostback = function(a,b,c){
       for(var i=0; i < a.elements.length; i++){
@@ -36,7 +43,7 @@ module Fetcher
         params: b,
       }}'
 
-      session.find("table[summary=Rechnugen]").find_all("tr").each do |row|
+      session.find("table[summary=Rechnugen]", wait: 10).find_all("tr").each do |row|
         session.execute_script 'delete window.data'
 
         cells  = row.find_all("td")
