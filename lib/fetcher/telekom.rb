@@ -7,12 +7,13 @@ module Fetcher
 
     def login
       page        = get(LOGIN)
-      form        = page.forms.first
+      form        = page.forms[0]
       form.pw_usr = @account.username
-      form.pw_pwd = @account.password
+      page        = form.submit
 
-      # Einloggen
-      page = form.submit
+      form        = page.forms[1]
+      form.pw_pwd = @account.password
+      page        = form.submit
 
       # Login fehlgeschlagen?
       raise LoginException if page.uri.to_s != 'https://www.telekom.de/kundencenter/startseite'
