@@ -61,25 +61,33 @@ module Fetcher
           number       = order.at("a[href*=orderID]")['href'].match(/orderID=([\d-]+)/)[1]
           popover      = order.at!("[data-a-popover*=invoice]")
           popover_page = get(JSON.parse(popover['data-a-popover'])['url'])
-          link         = popover_page.at!("a[href*=invoice]")
-          href         = link['href']
 
-          next if link.text =~ /(anfordern|nicht verfügbar)/
+          popover_page.search("a[href*='invoice/download']").each do |link|
 
-          if RECIPIENT
-            details = get("https://www.amazon.de/gp/css/summary/print.html?ie=UTF8&orderID=#{number}")
-            address = details.search(".displayAddressDiv").last.text
-            next if address !~ RECIPIENT
+            #if RECIPIENT
+            #  details = get("https://www.amazon.de/gp/css/summary/print.html?ie=UTF8&orderID=#{number}")
+            #  address = details.search(".displayAddressDiv").last.text
+            #  next if address !~ RECIPIENT
+            #end
+
+            if link.text.match(/Rechnung (\d+)/) && $1 != "1"
+              index = $1
+            else
+              index = nil
+            end
+
+            href = link['href']
+            href = "https://www.amazon.de#{href}" if href.starts_with?("/")
+
+            puts [number,index].compact.join("_")
+
+            invoices << build_invoice(
+              href:   href,
+              number: [number,index].compact.join("_"),
+              date:   self.class.parse_date(date),
+              amount: amount,
+            )
           end
-
-          href = "https://www.amazon.de#{href}" if href.starts_with?("/")
-
-          invoices << build_invoice(
-            href:   href,
-            number: number,
-            date:   self.class.parse_date(date),
-            amount: amount,
-          )
         end
 
         page += 1
